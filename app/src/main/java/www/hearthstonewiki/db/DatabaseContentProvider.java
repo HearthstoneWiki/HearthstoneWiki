@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.util.HashMap;
 
@@ -27,11 +28,15 @@ public class DatabaseContentProvider extends ContentProvider {
 
     public DatabaseContentProvider() {
         mUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-        mUriMatcher.addURI(DatabaseHelper.AUTHORITY, CardDataTable.TABLE_NAME, MAIN);
+        mUriMatcher.addURI(DatabaseHelper.AUTHORITY, CardDataTable.TABLE_NAME + "/all", MAIN);
+        mUriMatcher.addURI(DatabaseHelper.AUTHORITY, CardDataTable.TABLE_NAME + "/item", MAIN_ID);
+
 
         mProjectionMap = new HashMap<String, String>();
         mProjectionMap.put(CardDataTable._ID, CardDataTable._ID);
-        mProjectionMap.put(CardDataTable.COLUMN_DESCRIPTION, CardDataTable.COLUMN_DESCRIPTION);
+        mProjectionMap.put(CardDataTable.COLUMN_NAME, CardDataTable.COLUMN_NAME);
+        mProjectionMap.put(CardDataTable.COLUMN_TEXT, CardDataTable.COLUMN_TEXT);
+        mProjectionMap.put(CardDataTable.COLUMN_ID, CardDataTable.COLUMN_ID);
     }
 
     @Override
@@ -54,7 +59,7 @@ public class DatabaseContentProvider extends ContentProvider {
                 break;
 
             default:
-                throw new IllegalArgumentException("Unknown URI " + uri);
+                throw new IllegalArgumentException("Unknown URI " + uri  + " with " + mUriMatcher.match(uri));
         }
 
         getContext().getContentResolver().notifyChange(uri, null);
@@ -70,14 +75,14 @@ public class DatabaseContentProvider extends ContentProvider {
             case MAIN_ID:
                 return CardDataTable.CONTENT_ITEM_TYPE;
             default:
-                throw new IllegalArgumentException("Unknown URI " + uri);
+                throw new IllegalArgumentException("Unknown URI " + uri  + " with " + mUriMatcher.match(uri));
         }
     }
 
     @Override
     public Uri insert(Uri uri, ContentValues initialValues) {
         if (mUriMatcher.match(uri) != MAIN) {
-            throw new IllegalArgumentException("Unknown URI " + uri);
+            throw new IllegalArgumentException("Unknown URI " + uri  + " with " + mUriMatcher.match(uri));
         }
 
         ContentValues values;
@@ -88,8 +93,11 @@ public class DatabaseContentProvider extends ContentProvider {
             values = new ContentValues();
         }
 
-        if (!values.containsKey(CardDataTable.COLUMN_DESCRIPTION)) {
-            values.put(CardDataTable.COLUMN_DESCRIPTION, "");
+        if (!values.containsKey(CardDataTable.COLUMN_NAME)) {
+            values.put(CardDataTable.COLUMN_NAME, "");
+        }
+        if (!values.containsKey(CardDataTable.COLUMN_TEXT)) {
+            values.put(CardDataTable.COLUMN_TEXT, "");
         }
 
         SQLiteDatabase db = mOpenHelper.getWritableDatabase();
@@ -117,6 +125,7 @@ public class DatabaseContentProvider extends ContentProvider {
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
         qb.setTables(CardDataTable.TABLE_NAME);
 
+        System.out.print(mUriMatcher.match(uri));
         switch (mUriMatcher.match(uri)) {
             case MAIN:
                 qb.setProjectionMap(mProjectionMap);
@@ -128,7 +137,7 @@ public class DatabaseContentProvider extends ContentProvider {
                         new String[]{uri.getLastPathSegment()});
                 break;
             default:
-                throw new IllegalArgumentException("Unknown URI " + uri);
+                throw new IllegalArgumentException("Unknown URI " + uri + " with " + mUriMatcher.match(uri));
         }
 
         if (TextUtils.isEmpty(sortOrder)) {
@@ -137,9 +146,10 @@ public class DatabaseContentProvider extends ContentProvider {
 
         SQLiteDatabase db = mOpenHelper.getReadableDatabase();
 
+        Log.d("q", qb.buildQuery(projection, selection, null, null, sortOrder, "1"));
+
         Cursor c = qb.query(db, projection, selection, selectionArgs,
                 null /* no group */, null /* no filter */, sortOrder);
-
         c.setNotificationUri(getContext().getContentResolver(), uri);
         return c;
     }
@@ -164,7 +174,7 @@ public class DatabaseContentProvider extends ContentProvider {
                 break;
 
             default:
-                throw new IllegalArgumentException("Unknown URI " + uri);
+                throw new IllegalArgumentException("Unknown URI " + uri + " with " + mUriMatcher.match(uri));
         }
 
         getContext().getContentResolver().notifyChange(uri, null);

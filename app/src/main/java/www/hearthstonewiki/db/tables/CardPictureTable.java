@@ -7,7 +7,8 @@ import android.provider.BaseColumns;
  */
 public class CardPictureTable  implements BaseColumns {
 
-    private CardPictureTable() {}
+    private CardPictureTable() {
 
+    }
 
 }

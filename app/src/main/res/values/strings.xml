@@ -4,5 +4,7 @@
     <string name="app_name">HearthstoneWiki</string>
     <string name="hello_world">Hello world! <b>Freeze</b> </string>
     <string name="action_settings">Settings</string>
+    <string name="action_get_update">Get Update!</string>
+    <string name="action_look_cards">Look Cards</string>
 
 </resources>

@@ -8,7 +8,16 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name=".gui.activities.MenuActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".gui.activities.CardsActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,6 +32,12 @@
             android:enabled="true"
             android:exported="true" >
         </provider>
+
+        <service
+            android:name=".services.APIService"
+            android:exported="false" >
+        </service>
     </application>
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
