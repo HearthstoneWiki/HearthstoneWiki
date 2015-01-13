@@ -1,13 +1,24 @@
 package www.hearthstonewiki.gui.activities;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.content.LocalBroadcastManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import www.hearthstonewiki.R;
 import www.hearthstonewiki.services.APIService;
@@ -25,21 +36,22 @@ public class MenuActivity extends Activity {
         Button lookCardsButton;
 
         setContentView(R.layout.activity_main);
-//        getFragmentManager().beginTransaction()
-//                .replace(android.R.id.content, new LoaderFragment())
-//                .commit();
-//        ContentValues v = new ContentValues();
-        //v.put("_id", 3);
-        //v.put("description", "LaaaaaL");
-        //getContentResolver().delete(CardDataTable.CONTENT_URI, "3", ["id"]);
 
+        ImageView iv = (ImageView)findViewById(R.id.imageView);
+        Picasso.with(this).load("http://wow.zamimg.com/images/hearthstone/cards/enus/original/EX1_165.png")
+                .resize(434, 658)
+                .into(iv);
+
+
+        IntentFilter connectionStatusFilter = new IntentFilter( APIService.CONNECTION_STATUS_INTENT );
+        ConnectionStatusReceiver connectionReceiver = new ConnectionStatusReceiver();
+        LocalBroadcastManager.getInstance(this).registerReceiver(connectionReceiver, connectionStatusFilter);
 
 
         getUpdateButton = (Button)findViewById(R.id.get_update_button);
         getUpdateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("tag", "msg");
                 APIService.startActionGetUpdate(MenuActivity.this);
             }
         });
@@ -48,11 +60,19 @@ public class MenuActivity extends Activity {
         lookCardsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("tag", "cards");
                 Intent i = new Intent(MenuActivity.this, CardsActivity.class);
                 startActivity(i);
             }
         });
+
+        Button checkConnectionButton = (Button)findViewById(R.id.check_connection_button);
+        checkConnectionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                APIService.startActionCheckConnection(MenuActivity.this);
+            }
+        });
+
     }
 
 
@@ -73,5 +93,16 @@ public class MenuActivity extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private class ConnectionStatusReceiver extends BroadcastReceiver
+    {
+        private ConnectionStatusReceiver() {
+
+        }
+        public void onReceive(Context context, Intent intent) {
+            String s = intent.getStringExtra(APIService.CONNECTION_STATUS);
+            Toast.makeText(context, s, Toast.LENGTH_LONG).show();
+        }
     }
 }
