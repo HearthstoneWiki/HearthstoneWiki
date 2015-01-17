@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="www.hearthstonewiki.gui.activities.CardListActivity" >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/cardListLinearLayout"
+        android:layout_marginTop="50dp">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <fragment
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:name="www.hearthstonewiki.gui.activities.FilterFragment"
+            android:id="@+id/filterFragment"
+            tools:layout="@layout/fragment_filter"
+            android:layout_gravity="center_horizontal" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/bg_all_heroes"
+            android:id="@+id/selectedHeroView"
+            android:visibility="invisible">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/neutral_hero_name"
+                android:id="@+id/selectedHeroTextView"
+                android:layout_weight="1"
+                android:layout_gravity="center_vertical"
+                android:textColor="#ff875c11"
+                android:textStyle="bold|italic"
+                android:textSize="35sp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/showFilterImageButton"
+                android:src="@drawable/down_ico"
+                android:contentDescription="@string/show_filter_img_btn" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

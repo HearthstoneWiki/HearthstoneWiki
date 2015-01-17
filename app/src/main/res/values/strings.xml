@@ -2,9 +2,29 @@
 <resources>
 
     <string name="app_name">HearthstoneWiki</string>
-    <string name="hello_world">Hello world! <b>Freeze</b> </string>
+    <string name="hello_world">Hello world! <b>Freeze</b></string>
     <string name="action_settings">Settings</string>
     <string name="action_get_update">Get Update!</string>
     <string name="action_look_cards">Look Cards</string>
+    <string name="hearthstone_string">hearthstone</string>
+    <string name="hearthstone_logo">hearthstone_logo</string>
+    <string name="title_activity_card_list">CardListActivity</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="searching_title">Enter card name</string>
+    <string name="heroesButtonText">Heroes Button</string>
+
+    <string name="neutral_hero_name">Neutral</string>
+    <string name="warrior_hero_name">Warrior</string>
+    <string name="mage_hero_name">Mage</string>
+    <string name="paladin_hero_name">Paladin</string>
+    <string name="priest_hero_name">Priest</string>
+    <string name="rogue_hero_name">Rogue</string>
+    <string name="shaman_hero_name">Shaman</string>
+    <string name="warlock_hero_name">Warlock</string>
+    <string name="hunter_hero_name">Hunter</string>
+    <string name="druid_hero_name">Druid</string>
+    <string name="search_img_btn">Search</string>
+    <string name="show_filter_img_btn">Show filter</string>
+
 
 </resources>

@@ -49,7 +49,7 @@ public class MenuActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Log.d("tag", "cards");
-                Intent i = new Intent(MenuActivity.this, CardsActivity.class);
+                Intent i = new Intent(MenuActivity.this, CardListActivity.class);
                 startActivity(i);
             }
         });
