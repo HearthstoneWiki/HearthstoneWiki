@@ -13,8 +13,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView2"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:src="@drawable/hearthstone_logo"
         android:contentDescription="@string/logo_img"
         android:layout_gravity="center" />
@@ -43,21 +41,5 @@
         android:layout_gravity="center"
         android:layout_margin="5dp" />
 
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/logo_imageView"
-        android:layout_gravity="center_horizontal"
-        android:contentDescription="@string/hearthstone_logo"
-        android:background="@drawable/hearthstone"
-        android:layout_margin="20dp" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView"
-        android:layout_centerHorizontal="true"
-        android:contentDescription="@string/test_img"
-        android:layout_gravity="center" />
 
 </LinearLayout>

@@ -5,7 +5,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.database.Cursor;
 import android.support.v4.content.LocalBroadcastManager;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -20,14 +19,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 import www.hearthstonewiki.R;
-import www.hearthstonewiki.db.tables.CardDataTable;
+import www.hearthstonewiki.app.HearthstoneWikiApp;
 import www.hearthstonewiki.gui.msg.APIStatusMsg;
 import www.hearthstonewiki.services.APIService;
 import www.hearthstonewiki.services.APIStatus;
 
 
 public class MenuActivity extends Activity {
-
 
 
     @Override
@@ -38,12 +36,6 @@ public class MenuActivity extends Activity {
         Button lookCardsButton;
 
         setContentView(R.layout.activity_main);
-
-        ImageView iv = (ImageView)findViewById(R.id.imageView);
-        Picasso.with(this).load("http://wow.zamimg.com/images/hearthstone/cards/enus/original/EX1_165.png")
-                .resize(434, 658)
-                .into(iv);
-
 
         IntentFilter updateStatusFilter = new IntentFilter( APIService.API_STATUS_INTENT);
         UpdateStatusReceiver updateReceiver = new UpdateStatusReceiver();
@@ -103,7 +95,6 @@ public class MenuActivity extends Activity {
     private class UpdateStatusReceiver extends BroadcastReceiver
     {
 
-        boolean mCheckUpdate = true;
         private UpdateStatusReceiver() {
 
         }
@@ -115,9 +106,9 @@ public class MenuActivity extends Activity {
 
             switch(status) {
                 case APIStatus.CONNECTED:
-                    if(mCheckUpdate)
+                    if(HearthstoneWikiApp.checkForUpdates)
                         APIService.startActionCheckUpdate(context);
-                    mCheckUpdate = false;
+                    HearthstoneWikiApp.checkForUpdates = false;
                     break;
                 case APIStatus.NOT_CONNECTED:
                     message = APIStatusMsg.NO_CONNECTION;
