@@ -27,8 +27,10 @@ public class ImageAdapter extends CursorAdapter {
         LayoutInflater lInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = lInflater.inflate(R.layout.card_item, viewGroup, false);
         ImageView imageView = (ImageView) view.findViewById(R.id.cardImageView);
+        String cardID = cursor.getString(0);
+        String url = "http://wow.zamimg.com/images/hearthstone/cards/enus/original/" + cardID + ".png";
         Picasso.with(context)
-                .load("http://wow.zamimg.com/images/hearthstone/cards/enus/original/EX1_165.png")
+                .load(url)
                 .resize(434, 658)
                 .into(imageView);
         return view;
@@ -37,8 +39,10 @@ public class ImageAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         ImageView imageView = (ImageView) view.findViewById(R.id.cardImageView);
+        String cardID = cursor.getString(0);
+        String url = "http://wow.zamimg.com/images/hearthstone/cards/enus/original/" + cardID + ".png";
         Picasso.with(context)
-                .load("http://wow.zamimg.com/images/hearthstone/cards/enus/original/EX1_165.png")
+                .load(url)
                 .resize(434, 658)
                 .into(imageView);
 

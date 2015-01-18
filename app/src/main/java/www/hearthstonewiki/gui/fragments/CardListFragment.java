@@ -165,8 +165,11 @@ public class CardListFragment extends Fragment implements AbsListView.OnItemClic
         mSelectedHero = selectedHero;
 
         //mAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, testList);
-
+        Cursor c = getActivity().getContentResolver().query(Uri.withAppendedPath(CardDataTable.CARD_URI_FILTER, "/Warlock"),
+                PROJECTION, null, null, null
+        );
         mAdapter = new ImageAdapter(getActivity(), null, 0);
+        mAdapter.swapCursor(c);
         mGridView = (GridView) getActivity().findViewById(android.R.id.list);
         ((AdapterView<ListAdapter>) mGridView).setAdapter(mAdapter);
 
