@@ -37,24 +37,38 @@ public class APIService extends IntentService {
     private static final String ACTION_GET_UPDATE = "www.hearthstonewiki.services.action.GET_UPDATE";
     private static final String ACTION_CHECK_UPDATE = "www.hearthstonewiki.services.action.CHECK_UPDATE";
     private static final String ACTION_CHECK_CONNECTION = "www.hearthstonewiki.service.action.CHECK_CONNECTION";
+    private static final String ACTION_INIT_APP_DATA = "www.hearthstonewiki.service.action.INIT_DATA";
 
-    public static final String CONNECTION_STATUS = "www.hearthstonewiki.service.msg.ConnectionStatus";
-    public static final String CONNECTION_STATUS_INTENT = "www.hearthstonewiki.service.intent.ConnectionStatus";
+    public static final String API_STATUS = "www.hearthstonewiki.service.msg.ConnectionStatus";
+    public static final String API_STATUS_INTENT = "www.hearthstonewiki.service.intent.ConnectionStatus";
 
     private static final String API_URL = "http://hearthstonejson.com";
     private static final String ALL_CARDS_PATH = API_URL + "/json/AllSets.json";
     private static final String SET_LIST_PATH = API_URL + "/json/SetList.json";
     private static final String VERSION_PATH = API_URL + "/json/version.json";
 
-    private static final int CONNECTION_TIME_OUT = 100;
-    private static final int SOCKET_TME_OUT = 100;
+    private static final int CONNECTION_TIME_OUT = 1000;
+    private static final int SOCKET_TME_OUT = 1000;
 
     private APIConnector mApiConnector;
     private DataProcessor mDataProcessor;
 
+
+    public APIService() {
+        super("APIService");
+        mApiConnector = new APIConnector();
+        mDataProcessor = new DataProcessor();
+    }
+
     public static void startActionGetUpdate(Context context) {
         Intent intent = new Intent(context, APIService.class);
         intent.setAction(ACTION_GET_UPDATE);
+        context.startService(intent);
+    }
+
+    public static void startActionInitData(Context context) {
+        Intent intent = new Intent(context, APIService.class);
+        intent.setAction(ACTION_INIT_APP_DATA);
         context.startService(intent);
     }
 
@@ -70,12 +84,6 @@ public class APIService extends IntentService {
         context.startService(intent);
     }
 
-    public APIService() {
-        super("APIService");
-        mApiConnector = new APIConnector();
-        mDataProcessor = new DataProcessor();
-    }
-
     @Override
     protected void onHandleIntent(Intent intent) {
         if (intent != null) {
@@ -89,39 +97,64 @@ public class APIService extends IntentService {
             else if (ACTION_CHECK_CONNECTION.equals(action)) {
                 handleActionCheckConnection();
             }
+            else if (ACTION_INIT_APP_DATA.equals(action)) {
+                handleActionInitData();
+            }
         }
     }
 
 
+    private void handleActionInitData() {
+        String versionJSON, setsJSON, cardsJSON;
+
+        versionJSON = mApiConnector.getDataHttpClient(VERSION_PATH);
+        setsJSON = mApiConnector.getDataHttpClient(SET_LIST_PATH);
+        cardsJSON = mApiConnector.getDataHttpClient(ALL_CARDS_PATH);
+        mDataProcessor.updateSchema(setsJSON, cardsJSON);
+
+        mDataProcessor.updateVersion(versionJSON);
+
+        Intent intent = new Intent(API_STATUS_INTENT);
+        intent.putExtra(API_STATUS, APIStatus.UPDATED);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+    }
+
+
+    private void handleActionGetUpdate() {
+        String setsJSON, cardsJSON;
+        setsJSON = mApiConnector.getDataHttpClient(SET_LIST_PATH);
+        cardsJSON = mApiConnector.getDataHttpClient(ALL_CARDS_PATH);
+        mDataProcessor.updateSchema(setsJSON, cardsJSON);
+
+        Intent intent = new Intent(API_STATUS_INTENT);
+        intent.putExtra(API_STATUS, APIStatus.UPDATED);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+    }
+
 
     private void handleActionCheckUpdate() {
         String versionJSON = mApiConnector.getDataHttpClient(VERSION_PATH);
+        Intent intent = new Intent(API_STATUS_INTENT);
 
         if(versionJSON != null) {
+
             int status = mDataProcessor.checkVersion(versionJSON);
-            String setsJSON, cardsJSON;
+
             switch(status) {
                 case DataProcessor.ACTUAL:
-                    setsJSON = mApiConnector.getDataHttpClient(SET_LIST_PATH);
-                    cardsJSON = mApiConnector.getDataHttpClient(ALL_CARDS_PATH);
-                    mDataProcessor.updateSchema(setsJSON, cardsJSON);
-
+                    intent.putExtra(API_STATUS, APIStatus.ACTUAL);
                     break;
 
                 case DataProcessor.NEED_TO_INITIALIZE:
-                    mDataProcessor.updateVersion(versionJSON);
-                    setsJSON = mApiConnector.getDataHttpClient(SET_LIST_PATH);
-                    cardsJSON = mApiConnector.getDataHttpClient(ALL_CARDS_PATH);
-                    mDataProcessor.updateSchema(setsJSON, cardsJSON);
+                    intent.putExtra(API_STATUS, APIStatus.NEED_TO_INITIALIZE);
                     break;
 
                 case DataProcessor.NEED_TO_UPDATE:
-                    setsJSON = mApiConnector.getDataHttpClient(SET_LIST_PATH);
-                    cardsJSON = mApiConnector.getDataHttpClient(ALL_CARDS_PATH);
-                    mDataProcessor.updateSchema(setsJSON, cardsJSON);
+                    intent.putExtra(API_STATUS, APIStatus.NEED_TO_UPDATE);
                     break;
 
                 case DataProcessor.API_ERROR:
+                    intent.putExtra(API_STATUS, APIStatus.ERROR);
                     break;
 
                 default:
@@ -129,14 +162,11 @@ public class APIService extends IntentService {
             }
 
         }
+
+        LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
+
     }
 
-
-    private void handleActionGetUpdate() {
-        String cardsJSON = mApiConnector.getDataHttpClient(VERSION_PATH);
-        if (cardsJSON != null)
-            mDataProcessor.checkVersion(cardsJSON);
-    }
 
     private void handleActionCheckConnection() {
         ConnectivityManager cm =
@@ -144,7 +174,7 @@ public class APIService extends IntentService {
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 
-        Intent intent = new Intent(CONNECTION_STATUS_INTENT);
+        Intent intent = new Intent(API_STATUS_INTENT);
 
         if ( (activeNetwork != null) && activeNetwork.isConnected() && activeNetwork.isAvailable()) {
 
@@ -161,22 +191,24 @@ public class APIService extends IntentService {
             DefaultHttpClient httpClient = new DefaultHttpClient(httpParameters);
             try {
                 httpClient.execute(httpGet);
-                intent.putExtra(CONNECTION_STATUS, "true");
+                intent.putExtra(API_STATUS, APIStatus.CONNECTED);
             }
             catch (ClientProtocolException e) {
                 e.printStackTrace();
-                intent.putExtra(CONNECTION_STATUS, "false");
+                intent.putExtra(API_STATUS, APIStatus.NOT_CONNECTED);
             } catch (IOException e) {
                 e.printStackTrace();
-                intent.putExtra(CONNECTION_STATUS, "false");
+                intent.putExtra(API_STATUS, APIStatus.NOT_CONNECTED);
             }
         }
         else {
-            intent.putExtra(CONNECTION_STATUS, "false");
+            intent.putExtra(API_STATUS, APIStatus.NOT_CONNECTED);
         }
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
     }
 
+
+    /* Data processor class for init database */
     public class DataProcessor {
 
         final ArrayList<String> unnecessarySets = new ArrayList<String>() {{
@@ -210,7 +242,7 @@ public class APIService extends IntentService {
 
         private String getVersion(String jsonVersion) throws JSONException {
             JSONObject version = new JSONObject(jsonVersion);
-            return version.getString(JSONData.VESRSION);
+            return version.getString(JSONData.VERSION);
         }
 
         public void updateVersion(String jsonVersion) {
@@ -290,6 +322,8 @@ public class APIService extends IntentService {
                 }
             }
 
+            mDbHelper = new DatabaseHelper(getApplicationContext());
+
             SQLiteDatabase db = mDbHelper.getReadableDatabase();
             db.delete(SetsTable.TABLE_NAME,
                     null,
@@ -325,6 +359,17 @@ public class APIService extends IntentService {
                     JSONArray setCards = cards.getJSONArray(cursor.getString(0));
                     for(int num = 0; num < setCards.length(); num++) {
                         JSONObject card = setCards.getJSONObject(num);
+
+                        if(!card.has(JSONData.RARITY) || !card.has(JSONData.TEXT_DESCRIPTION) || card.getString(JSONData.ID).equals("EX1_596e")) {
+                            continue;
+                        }
+                        if(!card.has(JSONData.TYPE)) {
+                            continue;
+                        } else {
+                            if(card.getString(JSONData.TYPE).equals("Hero Power"))
+                                continue;
+                        }
+
                         String id = card.getString(JSONData.ID);
                         Cursor cardCursor = getContentResolver().query(
                                 Uri.withAppendedPath(CardDataTable.CARD_URI_ID,id),
@@ -338,13 +383,8 @@ public class APIService extends IntentService {
                             ContentValues cv = new ContentValues();
                             cv.put(CardDataTable._ID, id);
                             cv.put(CardDataTable.COLUMN_NAME, card.getString(JSONData.NAME));
-                            if(card.has(JSONData.TEXT_DESCRIPTION)) {
-                                cv.put(CardDataTable.COLUMN_TEXT, card.getString(JSONData.TEXT_DESCRIPTION));
-                            }
-                            else {
-                                cardCursor.close();
-                                continue;
-                            }
+                            cv.put(CardDataTable.COLUMN_TEXT, card.getString(JSONData.TEXT_DESCRIPTION));
+
                             if(card.has(JSONData.COST)) {
                                 cv.put(CardDataTable.COLUMN_COST, card.getInt(JSONData.COST));
                             }
@@ -356,7 +396,7 @@ public class APIService extends IntentService {
                                 cv.put(CardDataTable.COLUMN_CLASS, card.getString(JSONData.CLASS));
                             }
                             else {
-                                cv.put(CardDataTable.COLUMN_CLASS, "base");
+                                cv.put(CardDataTable.COLUMN_CLASS, "Neutral");
                             }
                             getContentResolver().insert(CardDataTable.CARD_URI, cv);
                         }

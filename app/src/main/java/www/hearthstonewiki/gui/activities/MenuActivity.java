@@ -21,7 +21,9 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 import www.hearthstonewiki.R;
 import www.hearthstonewiki.db.tables.CardDataTable;
+import www.hearthstonewiki.gui.msg.APIStatusMsg;
 import www.hearthstonewiki.services.APIService;
+import www.hearthstonewiki.services.APIStatus;
 
 
 public class MenuActivity extends Activity {
@@ -43,16 +45,16 @@ public class MenuActivity extends Activity {
                 .into(iv);
 
 
-        IntentFilter connectionStatusFilter = new IntentFilter( APIService.CONNECTION_STATUS_INTENT );
-        ConnectionStatusReceiver connectionReceiver = new ConnectionStatusReceiver();
-        LocalBroadcastManager.getInstance(this).registerReceiver(connectionReceiver, connectionStatusFilter);
+        IntentFilter updateStatusFilter = new IntentFilter( APIService.API_STATUS_INTENT);
+        UpdateStatusReceiver updateReceiver = new UpdateStatusReceiver();
+        LocalBroadcastManager.getInstance(this).registerReceiver(updateReceiver, updateStatusFilter);
 
 
         getUpdateButton = (Button)findViewById(R.id.get_update_button);
         getUpdateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                APIService.startActionCheckUpdate(MenuActivity.this);
+                APIService.startActionGetUpdate(MenuActivity.this);
             }
         });
 
@@ -82,8 +84,8 @@ public class MenuActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
+        //getMenuInflater().inflate(R.menu.main, menu);
+        return false;
     }
 
     @Override
@@ -98,30 +100,67 @@ public class MenuActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    private class ConnectionStatusReceiver extends BroadcastReceiver
+    private class UpdateStatusReceiver extends BroadcastReceiver
     {
-        private ConnectionStatusReceiver() {
+
+        boolean mCheckUpdate = true;
+        private UpdateStatusReceiver() {
 
         }
         public void onReceive(Context context, Intent intent) {
-            String s = intent.getStringExtra(APIService.CONNECTION_STATUS);
+            int status = intent.getIntExtra(APIService.API_STATUS, -1);
 
-            LayoutInflater inflater = getLayoutInflater();
-            View layout = inflater.inflate(R.layout.toast_layout,
-                    (ViewGroup) findViewById(R.id.toast_layout_root));
+            boolean showToast = false;
+            String message = "";
 
-            TextView text_place = (TextView) layout.findViewById(R.id.text);
+            switch(status) {
+                case APIStatus.CONNECTED:
+                    if(mCheckUpdate)
+                        APIService.startActionCheckUpdate(context);
+                    mCheckUpdate = false;
+                    break;
+                case APIStatus.NOT_CONNECTED:
+                    message = APIStatusMsg.NO_CONNECTION;
+                    showToast = true;
+                    break;
+                case APIStatus.ACTUAL:
+                    message = APIStatusMsg.ACTUAL;
+                    showToast = true;
+                    break;
+                case APIStatus.NEED_TO_UPDATE:
+                    APIService.startActionGetUpdate(context);
+                    break;
+                case APIStatus.NEED_TO_INITIALIZE:
+                    APIService.startActionInitData(context);
+                    break;
+                case APIStatus.UPDATED:
+                    message = APIStatusMsg.UPDATED;
+                    showToast = true;
+                    break;
+                case APIStatus.ERROR:
+                    message = APIStatusMsg.ERROR;
+                    showToast = true;
+                    break;
+                default:
+                    break;
+            }
 
-            String PR[] = {CardDataTable._ID};
-            Cursor c = getContentResolver().query(CardDataTable.CARD_URI, PR, null, null, null);
+            if(showToast) {
 
-            text_place.setText(String.valueOf(c.getCount()));
+                LayoutInflater inflater = getLayoutInflater();
+                View layout = inflater.inflate(R.layout.toast_layout,
+                        (ViewGroup) findViewById(R.id.toast_layout_root));
 
-            Toast toast = new Toast(context);
-            toast.setGravity(Gravity.BOTTOM, 0, 50);
-            toast.setDuration(Toast.LENGTH_LONG);
-            toast.setView(layout);
-            toast.show();
+                TextView text_place = (TextView) layout.findViewById(R.id.text);
+
+                text_place.setText(message);
+
+                Toast toast = new Toast(context);
+                toast.setGravity(Gravity.BOTTOM, 0, 50);
+                toast.setDuration(Toast.LENGTH_LONG);
+                toast.setView(layout);
+                toast.show();
+            }
 
         }
     }
