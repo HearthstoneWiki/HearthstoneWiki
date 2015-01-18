@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="www.hearthstonewiki.gui.activities.FilterFragment"
+    tools:context="www.hearthstonewiki.gui.fragments.FilterFragment"
     android:orientation="vertical"
     style="@android:style/Theme.DeviceDefault.Light"
     android:background="#d1838383">

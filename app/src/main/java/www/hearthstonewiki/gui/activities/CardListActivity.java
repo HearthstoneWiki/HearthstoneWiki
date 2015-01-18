@@ -11,9 +11,10 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import www.hearthstonewiki.R;
+import www.hearthstonewiki.gui.fragments.CardListFragment;
+import www.hearthstonewiki.gui.fragments.FilterFragment;
 
 public class CardListActivity extends Activity implements FilterFragment.OnFragmentInteractionListener, View.OnClickListener {
 

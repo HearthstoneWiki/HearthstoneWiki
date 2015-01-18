@@ -24,7 +24,7 @@
         <fragment
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:name="www.hearthstonewiki.gui.activities.FilterFragment"
+            android:name="www.hearthstonewiki.gui.fragments.FilterFragment"
             android:id="@+id/filterFragment"
             tools:layout="@layout/fragment_filter"
             android:layout_gravity="center_horizontal" />
