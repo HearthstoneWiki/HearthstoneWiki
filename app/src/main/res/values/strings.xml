@@ -32,6 +32,7 @@
     <string name="logo_img">LogoImage</string>
     <string name="check_connection">Check Connection</string>
     <string name="card_item">Card</string>
+    <string name="toast_img">toast_img</string>
 
 
 </resources>

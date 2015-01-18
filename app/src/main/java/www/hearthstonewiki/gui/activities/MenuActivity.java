@@ -5,19 +5,22 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Bundle;
+import android.database.Cursor;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
+import android.os.Bundle;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import com.squareup.picasso.Picasso;
-
 import www.hearthstonewiki.R;
+import www.hearthstonewiki.db.tables.CardDataTable;
 import www.hearthstonewiki.services.APIService;
 
 
@@ -49,7 +52,7 @@ public class MenuActivity extends Activity {
         getUpdateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                APIService.startActionGetUpdate(MenuActivity.this);
+                APIService.startActionCheckUpdate(MenuActivity.this);
             }
         });
 
@@ -72,8 +75,9 @@ public class MenuActivity extends Activity {
             }
         });
 
-    }
+        APIService.startActionCheckConnection(this);
 
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -101,7 +105,24 @@ public class MenuActivity extends Activity {
         }
         public void onReceive(Context context, Intent intent) {
             String s = intent.getStringExtra(APIService.CONNECTION_STATUS);
-            Toast.makeText(context, s, Toast.LENGTH_LONG).show();
+
+            LayoutInflater inflater = getLayoutInflater();
+            View layout = inflater.inflate(R.layout.toast_layout,
+                    (ViewGroup) findViewById(R.id.toast_layout_root));
+
+            TextView text_place = (TextView) layout.findViewById(R.id.text);
+
+            String PR[] = {CardDataTable._ID};
+            Cursor c = getContentResolver().query(CardDataTable.CARD_URI, PR, null, null, null);
+
+            text_place.setText(String.valueOf(c.getCount()));
+
+            Toast toast = new Toast(context);
+            toast.setGravity(Gravity.BOTTOM, 0, 50);
+            toast.setDuration(Toast.LENGTH_LONG);
+            toast.setView(layout);
+            toast.show();
+
         }
     }
 }
