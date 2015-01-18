@@ -25,6 +25,7 @@ public class LoaderFragment extends ListFragment implements LoaderManager.Loader
             CardDataTable._ID,
     };
 
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

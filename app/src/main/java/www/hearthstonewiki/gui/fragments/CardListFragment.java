@@ -1,6 +1,10 @@
-package www.hearthstonewiki.gui.activities;
+package www.hearthstonewiki.gui.fragments;
 
 import android.app.Activity;
+import android.app.LoaderManager;
+import android.content.CursorLoader;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ListAdapter;
+import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,6 +23,8 @@ import java.util.ArrayList;
 
 import www.hearthstonewiki.R;
 
+import www.hearthstonewiki.db.tables.CardDataTable;
+import www.hearthstonewiki.gui.activities.ImageAdapter;
 import www.hearthstonewiki.gui.activities.dummy.DummyContent;
 
 /**
@@ -29,7 +36,11 @@ import www.hearthstonewiki.gui.activities.dummy.DummyContent;
  * Activities containing this fragment MUST implement the {@link //Callbacks}
  * interface.
  */
-public class CardListFragment extends Fragment implements AbsListView.OnItemClickListener {
+public class CardListFragment extends Fragment implements AbsListView.OnItemClickListener, LoaderManager.LoaderCallbacks<Cursor> {
+
+    static final String[] PROJECTION = new String[] {
+            CardDataTable._ID,
+    };
 
 
     public static final String CARD_LIST_FRAGMENT_TAG = "cardListFragment";
@@ -54,7 +65,7 @@ public class CardListFragment extends Fragment implements AbsListView.OnItemClic
      * The Adapter which will be used to populate the ListView/GridView with
      * Views.
      */
-    private ListAdapter mAdapter;
+    private ImageAdapter mAdapter;
 
     // TODO: Rename and change types of parameters
     public static CardListFragment newInstance(String searchingString, String selectedHero) {
@@ -82,61 +93,14 @@ public class CardListFragment extends Fragment implements AbsListView.OnItemClic
             mSelectedHero = getArguments().getString(ARG_SELECTED_HERO);
         }
 
+        //mAdapter = new ArrayAdapter<String>(getActivity(),
+        //        android.R.layout.simple_list_item_1, android.R.id.text1, testList);
 
-        // TODO: Change Adapter to display your content
-//        mAdapter = new ArrayAdapter<DummyContent.DummyItem>(getActivity(),
-//                android.R.layout.simple_list_item_1, android.R.id.text1, DummyContent.ITEMS);
+        Cursor c = getActivity().getContentResolver().query(Uri.withAppendedPath(CardDataTable.CARD_URI_FILTER, "/Warlock"),
+                PROJECTION, null, null, null
+        );
 
-        ArrayList<String> testList = new ArrayList<String>();
-        if (mSearchingStr == null || mSearchingStr.equals("")) {
-            testList.add("Null");
-        }
-        else {
-            testList.add(mSearchingStr);
-        }
-        if (mSelectedHero == null) {
-            testList.add("Null");
-        }
-        else {
-            testList.add(mSelectedHero);
-        }
-        testList.add("3");
-        testList.add("4");
-        testList.add("5");
-        testList.add("3");
-        testList.add("4");
-        testList.add("5");
-        testList.add("3");
-        testList.add("4");
-        testList.add("5");
-        testList.add("3");
-        testList.add("4");
-        testList.add("5");testList.add("3");
-        testList.add("4");
-        testList.add("5");testList.add("3");
-        testList.add("4");
-        testList.add("5");
-        testList.add("3");
-        testList.add("4");
-        testList.add("5");
-        testList.add("3");
-        testList.add("4");
-        testList.add("5");
-        testList.add("3");
-        testList.add("4");
-        testList.add("5");
-        testList.add("3");
-        testList.add("4");
-        testList.add("5");
-        testList.add("3");
-        testList.add("4");
-        testList.add("6");
-        testList.add("7");
-        testList.add("8");
-        testList.add("9");
-
-        mAdapter = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_list_item_1, android.R.id.text1, testList);
+        mAdapter = new ImageAdapter(getActivity(), c, 0);
     }
 
     @Override
@@ -200,66 +164,42 @@ public class CardListFragment extends Fragment implements AbsListView.OnItemClic
         mSearchingStr = searchingStr;
         mSelectedHero = selectedHero;
 
-        ArrayList<String> testList = new ArrayList<String>();
-        if (mSearchingStr == null || mSearchingStr.equals("")) {
-            testList.add("Null");
-        }
-        else {
-            testList.add(mSearchingStr);
-        }
-        if (mSelectedHero == null) {
-            testList.add("Null");
-        }
-        else {
-            testList.add(mSelectedHero);
-        }
-        testList.add("3");
-        testList.add("4");
-        testList.add("5");
-        testList.add("3");
-        testList.add("4");
-        testList.add("5");
-        testList.add("3");
-        testList.add("4");
-        testList.add("5");
-        testList.add("3");
-        testList.add("4");
-        testList.add("5");testList.add("3");
-        testList.add("4");
-        testList.add("5");testList.add("3");
-        testList.add("4");
-        testList.add("5");
-        testList.add("3");
-        testList.add("4");
-        testList.add("5");
-        testList.add("3");
-        testList.add("4");
-        testList.add("5");
-        testList.add("3");
-        testList.add("4");
-        testList.add("5");
-        testList.add("3");
-        testList.add("4");
-        testList.add("5");
-        testList.add("3");
-        testList.add("4");
-        testList.add("6");
-        testList.add("7");
-        testList.add("8");
-        testList.add("9");
-        mAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, testList);
+        //mAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, testList);
+
+        mAdapter = new ImageAdapter(getActivity(), null, 0);
         mGridView = (GridView) getActivity().findViewById(android.R.id.list);
         ((AdapterView<ListAdapter>) mGridView).setAdapter(mAdapter);
 
         // Set OnItemClickListener so we can be notified on item clicks
         mGridView.setOnItemClickListener(this);
 
-        //Toast.makeText(getActivity(), "In fragment " + mSearchingStr + " " + mSelectedHero, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "In fragment " + mSearchingStr + " " + mSelectedHero, Toast.LENGTH_SHORT).show();
     }
 
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onFragmentInteraction(String id);
+    }
+
+
+    @Override
+    public android.content.Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+        //CursorLoader cl = new CursorLoader(getActivity(), CardDataTable.CARD_URI,
+        //        PROJECTION, null, null, null);
+        CursorLoader cl = new CursorLoader(getActivity(),
+                Uri.withAppendedPath(CardDataTable.CARD_URI_FILTER, "/Warlock"),
+                PROJECTION, null, null, null);
+        return cl;
+    }
+
+    @Override
+    public void onLoadFinished(android.content.Loader<Cursor> cursorLoader, Cursor cursor) {
+        mAdapter.swapCursor(cursor);
+    }
+
+    @Override
+    public void onLoaderReset(android.content.Loader<Cursor> cursorLoader) {
+        mAdapter.swapCursor(null);
     }
 
 }

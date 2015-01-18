@@ -1,4 +1,4 @@
-package www.hearthstonewiki.gui.activities;
+package www.hearthstonewiki.gui.fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -9,13 +9,13 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import www.hearthstonewiki.R;
+import www.hearthstonewiki.gui.activities.CardListActivity;
 
 /**
  * A simple {@link Fragment} subclass.
