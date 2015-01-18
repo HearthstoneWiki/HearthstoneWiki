@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,12 +12,18 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import www.hearthstonewiki.R;
+import www.hearthstonewiki.gui.fragments.CardDetailFragment;
 import www.hearthstonewiki.gui.fragments.CardListFragment;
 import www.hearthstonewiki.gui.fragments.FilterFragment;
 
-public class CardListActivity extends Activity implements FilterFragment.OnFragmentInteractionListener, View.OnClickListener {
+public class CardListActivity extends Activity implements
+        FilterFragment.OnFragmentInteractionListener,
+        View.OnClickListener,
+        CardListFragment.OnFragmentInteractionListener,
+        CardDetailFragment.OnFragmentInteractionListener {
 
     public static final String NEUTRAL = "Neutral";
     public static final String WARRIOR = "Warrior";
@@ -189,6 +196,33 @@ public class CardListActivity extends Activity implements FilterFragment.OnFragm
             }
             ft.commit();
 
+        }
+    }
+
+    @Override
+    public void onItemClickInteraction(String cardId) {
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+
+        CardDetailFragment cardDetailFragment = (CardDetailFragment) fm.findFragmentByTag(CardDetailFragment.CARD_DETAIL_FRAGMENT_TAG);
+
+        if (cardDetailFragment == null) {
+            cardDetailFragment = CardDetailFragment.newInstance(cardId);
+            cardDetailFragment.setRetainInstance(true);
+            ft.add(R.id.cardInfoFrameLayout, cardDetailFragment, CardDetailFragment.CARD_DETAIL_FRAGMENT_TAG);
+            ft.commit();
+        }
+
+    }
+
+    @Override
+    public void onCloseFragmentInteraction() {
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        CardDetailFragment cardDetailFragment = (CardDetailFragment) fm.findFragmentByTag(CardDetailFragment.CARD_DETAIL_FRAGMENT_TAG);
+        if (cardDetailFragment != null) {
+            ft.remove(cardDetailFragment);
+            ft.commit();
         }
     }
 }

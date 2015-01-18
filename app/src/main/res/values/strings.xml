@@ -33,6 +33,8 @@
     <string name="check_connection">Check Connection</string>
     <string name="card_item">Card</string>
     <string name="toast_img">toast_img</string>
+    <string name="card_detail">Selected card detail</string>
+    <string name="close_detail">Close</string>
 
 
 </resources>

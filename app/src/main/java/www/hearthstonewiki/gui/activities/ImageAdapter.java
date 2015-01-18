@@ -38,5 +38,6 @@ public class ImageAdapter extends CursorAdapter {
                 .load(url)
                 .resize(434, 658)
                 .into(imageView);
+        view.setTag(cardID);
     }
 }
