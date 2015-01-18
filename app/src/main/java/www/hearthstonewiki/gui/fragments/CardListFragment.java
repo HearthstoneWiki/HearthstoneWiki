@@ -92,10 +92,6 @@ public class CardListFragment extends Fragment implements AbsListView.OnItemClic
             mSelectedHero = getArguments().getString(ARG_SELECTED_HERO);
         }
 
-        Cursor c = getActivity().getContentResolver().query(Uri.withAppendedPath(CardDataTable.CARD_URI_FILTER, "/" + mSelectedHero),
-                PROJECTION, null, null, null
-        );
-
         mAdapter = new ImageAdapter(getActivity(), null, 0);
     }
 
@@ -187,9 +183,22 @@ public class CardListFragment extends Fragment implements AbsListView.OnItemClic
     public android.content.Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         //CursorLoader cl = new CursorLoader(getActivity(), CardDataTable.CARD_URI,
         //        PROJECTION, null, null, null);
-        CursorLoader cl = new CursorLoader(getActivity(),
-                Uri.withAppendedPath(CardDataTable.CARD_URI_FILTER, "/" + mSelectedHero),
-                PROJECTION, null, null, null);
+
+        android.net.Uri uri;
+
+        if (mSelectedHero != null && mSearchingStr != null) {
+            uri = Uri.withAppendedPath(CardDataTable.CARD_URI_FILTER, "/" + mSelectedHero + "/" + mSearchingStr);
+        }
+        else if (mSelectedHero != null) {
+            uri = Uri.withAppendedPath(CardDataTable.CARD_URI_CLASS, "/" + mSelectedHero);
+        }
+        else if (mSearchingStr != null) {
+            uri = Uri.withAppendedPath(CardDataTable.CARD_URI_SEARCH, "/" + mSearchingStr);
+        }
+        else {
+            uri = CardDataTable.CARD_URI;
+        }
+        CursorLoader cl = new CursorLoader(getActivity(), uri, PROJECTION, null, null, null);
         return cl;
     }
 
