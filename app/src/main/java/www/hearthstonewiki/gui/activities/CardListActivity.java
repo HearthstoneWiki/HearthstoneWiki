@@ -130,6 +130,9 @@ public class CardListActivity extends Activity implements
             //Toast.makeText(this, mSearchingStr + " " + mSelectedHero, Toast.LENGTH_SHORT).show();
         }
         else {
+            if (!mIsLandscape) {
+                ((ImageButton) findViewById(R.id.showFilterImageButton)).setImageResource(R.drawable.down_ico);
+            }
             cardListFragment.applyNewFilter(mSearchingStr, mSelectedHero);
         }
 
@@ -138,46 +141,62 @@ public class CardListActivity extends Activity implements
 
     }
 
-    private void updateSelectedHeroView() {
-        LinearLayout heroImgView = (LinearLayout) findViewById(R.id.selectedHeroView);
-        TextView selectedHeroText = (TextView) findViewById(R.id.selectedHeroTextView);
+    @Override
+    public void onSwitchHeroInteraction(String selectedHero) {
 
-        if (mSelectedHero == null) {
-            selectedHeroText.setText("");
-            heroImgView.setBackgroundResource(R.drawable.bg_all_heroes);
-        } else if (mSelectedHero.equals(DRUID)) {
-            selectedHeroText.setText(R.string.druid_hero_name);
-            heroImgView.setBackgroundResource(R.drawable.bg_druid);
-        } else if (mSelectedHero.equals(HUNTER)) {
-            selectedHeroText.setText(R.string.hunter_hero_name);
-            heroImgView.setBackgroundResource(R.drawable.bg_hunter);
-        } else if (mSelectedHero.equals(WARlOCK)) {
-            selectedHeroText.setText(R.string.warlock_hero_name);
-            heroImgView.setBackgroundResource(R.drawable.bg_warlock);
-        } else if (mSelectedHero.equals(WARRIOR)) {
-            selectedHeroText.setText(R.string.warrior_hero_name);
-            heroImgView.setBackgroundResource(R.drawable.bg_warrior);
-        } else if (mSelectedHero.equals(PRIEST)) {
-            selectedHeroText.setText(R.string.priest_hero_name);
-            heroImgView.setBackgroundResource(R.drawable.bg_priest);
-        } else if (mSelectedHero.equals(MAGE)) {
-            selectedHeroText.setText(R.string.mage_hero_name);
-            heroImgView.setBackgroundResource(R.drawable.bg_mage);
-        } else if (mSelectedHero.equals(NEUTRAL)) {
-            selectedHeroText.setText(R.string.neutral_hero_name);
-            heroImgView.setBackgroundResource(R.drawable.bg_neutral);
-        } else if (mSelectedHero.equals(PALADIN)) {
-            selectedHeroText.setText(R.string.paladin_hero_name);
-            heroImgView.setBackgroundResource(R.drawable.bg_paladin);
-        } else if (mSelectedHero.equals(ROGUE)) {
-            selectedHeroText.setText(R.string.rogue_hero_name);
-            heroImgView.setBackgroundResource(R.drawable.bg_rogue);
-        } else if (mSelectedHero.equals(SHAMAN)) {
-            selectedHeroText.setText(R.string.shaman_hero_name);
-            heroImgView.setBackgroundResource(R.drawable.bg_shaman);
+        mSelectedHero = selectedHero;
+
+        FragmentManager fm = getFragmentManager();
+        CardListFragment cardListFragment = (CardListFragment) fm.findFragmentByTag(CardListFragment.CARD_LIST_FRAGMENT_TAG);
+        if (cardListFragment != null) {
+            Toast.makeText(this, "onSwitchHeroInteraction", Toast.LENGTH_SHORT).show();
+            updateSelectedHeroView();
+            cardListFragment.applyNewFilter(mSearchingStr, mSelectedHero);
         }
+    }
 
-        heroImgView.setVisibility(View.VISIBLE);
+    private void updateSelectedHeroView() {
+        if (!mIsLandscape) {
+            LinearLayout heroImgView = (LinearLayout) findViewById(R.id.selectedHeroView);
+            TextView selectedHeroText = (TextView) findViewById(R.id.selectedHeroTextView);
+
+            if (mSelectedHero == null) {
+                selectedHeroText.setText("");
+                heroImgView.setBackgroundResource(R.drawable.bg_all_heroes);
+            } else if (mSelectedHero.equals(DRUID)) {
+                selectedHeroText.setText(R.string.druid_hero_name);
+                heroImgView.setBackgroundResource(R.drawable.bg_druid);
+            } else if (mSelectedHero.equals(HUNTER)) {
+                selectedHeroText.setText(R.string.hunter_hero_name);
+                heroImgView.setBackgroundResource(R.drawable.bg_hunter);
+            } else if (mSelectedHero.equals(WARlOCK)) {
+                selectedHeroText.setText(R.string.warlock_hero_name);
+                heroImgView.setBackgroundResource(R.drawable.bg_warlock);
+            } else if (mSelectedHero.equals(WARRIOR)) {
+                selectedHeroText.setText(R.string.warrior_hero_name);
+                heroImgView.setBackgroundResource(R.drawable.bg_warrior);
+            } else if (mSelectedHero.equals(PRIEST)) {
+                selectedHeroText.setText(R.string.priest_hero_name);
+                heroImgView.setBackgroundResource(R.drawable.bg_priest);
+            } else if (mSelectedHero.equals(MAGE)) {
+                selectedHeroText.setText(R.string.mage_hero_name);
+                heroImgView.setBackgroundResource(R.drawable.bg_mage);
+            } else if (mSelectedHero.equals(NEUTRAL)) {
+                selectedHeroText.setText(R.string.neutral_hero_name);
+                heroImgView.setBackgroundResource(R.drawable.bg_neutral);
+            } else if (mSelectedHero.equals(PALADIN)) {
+                selectedHeroText.setText(R.string.paladin_hero_name);
+                heroImgView.setBackgroundResource(R.drawable.bg_paladin);
+            } else if (mSelectedHero.equals(ROGUE)) {
+                selectedHeroText.setText(R.string.rogue_hero_name);
+                heroImgView.setBackgroundResource(R.drawable.bg_rogue);
+            } else if (mSelectedHero.equals(SHAMAN)) {
+                selectedHeroText.setText(R.string.shaman_hero_name);
+                heroImgView.setBackgroundResource(R.drawable.bg_shaman);
+            }
+
+            heroImgView.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
