@@ -6,15 +6,21 @@
     android:layout_height="match_parent"
     tools:context="www.hearthstonewiki.gui.activities.CardListActivity" >
 
-    <LinearLayout
-        android:orientation="vertical"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/cardListLinearLayout"
-        android:layout_marginTop="50dp">
+        android:layout_height="match_parent"
+        android:id="@+id/cardInfoFrameLayout"
+        android:paddingTop="50dp">
 
-    </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/cardListLinearLayout">
+
+        </LinearLayout>
+    </FrameLayout>
 
     <LinearLayout
         android:orientation="vertical"

@@ -16,38 +16,45 @@
         android:layout_gravity="center_vertical"
         android:layout_weight="0.5" />
 
-    <LinearLayout
-        android:orientation="vertical"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
-        android:id="@+id/cardListLinearLayout"
-        android:layout_weight="0.5">
+        android:layout_weight="0.5"
+        android:id="@+id/cardInfoFrameLayout">
 
         <LinearLayout
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@drawable/bg_all_heroes"
-            android:id="@+id/selectedHeroView"
-            android:visibility="invisible">
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/cardListLinearLayout">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/neutral_hero_name"
-                android:id="@+id/selectedHeroTextView"
-                android:layout_weight="1"
-                android:layout_gravity="center_vertical"
-                android:textColor="#ff875c11"
-                android:textStyle="bold|italic"
-                android:textSize="35sp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/bg_all_heroes"
+                android:id="@+id/selectedHeroView"
+                android:visibility="invisible">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/neutral_hero_name"
+                    android:id="@+id/selectedHeroTextView"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#ff875c11"
+                    android:textStyle="bold|italic"
+                    android:textSize="35sp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp" />
+
+            </LinearLayout>
 
         </LinearLayout>
-
-    </LinearLayout>
+    </FrameLayout>
 
 </LinearLayout>
