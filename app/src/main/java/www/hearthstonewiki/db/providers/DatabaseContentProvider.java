@@ -185,8 +185,7 @@ public class DatabaseContentProvider extends ContentProvider {
             sb = sb.append(projection[i]);
             sb.append(", ");
         }
-        if (projection.length > 1)
-            sb.append(projection[projection.length - 1]);
+        sb.append(projection[projection.length - 1]);
         return sb.toString();
     }
 

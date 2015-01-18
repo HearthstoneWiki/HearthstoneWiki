@@ -41,9 +41,6 @@ public class LoaderFragment extends ListFragment implements LoaderManager.Loader
         setListAdapter(mAdapter);
         getLoaderManager().initLoader(0, null, this);
 
-        Cursor c = getActivity().getContentResolver().query(Uri.withAppendedPath(CardDataTable.CARD_URI_FILTER, "/Warlock"),
-                PROJECTION, null, null, null
-        );
     }
 
 
