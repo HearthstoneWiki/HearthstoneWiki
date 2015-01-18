@@ -94,14 +94,10 @@ public class FilterFragment extends Fragment implements ToggleButton.OnCheckedCh
             if (mSelectedHeroBtn == buttonView.getId())
                 mSelectedHeroBtn = null;
         }
-        String s;
-        if (mSelectedHeroBtn != null) {
-             s = mHeroesBtnMap.get(mSelectedHeroBtn);
+
+        if (mListener != null && mSelectedHeroBtn != null) {
+            mListener.onSwitchHeroInteraction(mHeroesBtnMap.get(mSelectedHeroBtn));
         }
-        else {
-            s = "null";
-        }
-        //Toast.makeText(buttonView.getContext(), s, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -134,5 +130,6 @@ public class FilterFragment extends Fragment implements ToggleButton.OnCheckedCh
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onClickSearchBtnInteraction(String searchingStr, String selectedHero);
+        public void onSwitchHeroInteraction(String selectedHero);
     }
 }
