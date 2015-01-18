@@ -1,0 +1,162 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="www.hearthstonewiki.gui.activities.FilterFragment"
+    android:orientation="vertical"
+    style="@android:style/Theme.DeviceDefault.Light"
+    android:background="#d1838383">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <TextView
+                android:text="@string/searching_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/SearchingTitleTextView"
+                android:layout_gravity="center_vertical|left"
+                android:layout_marginLeft="15dp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/searchEditText"
+                android:layout_gravity="center_horizontal"
+                android:singleLine="false"
+                android:inputType="text" />
+
+        </LinearLayout>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/searchButton"
+            android:src="@android:drawable/ic_menu_search"
+            android:contentDescription="@string/search_img_btn" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <ToggleButton
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:id="@+id/neutralToggleButton"
+            android:background="@drawable/toggle_selector"
+            android:layout_gravity="center"
+            android:layout_margin="6dp"
+            android:textOff=" "
+            android:textOn=" " />
+
+        <ToggleButton
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:id="@+id/warriorToggleButton"
+            android:background="@drawable/toggle_selector"
+            android:layout_margin="6dp"
+            android:textOff=" "
+            android:textOn=" " />
+
+        <ToggleButton
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:id="@+id/mageToggleButton"
+            android:background="@drawable/toggle_selector"
+            android:layout_margin="6dp"
+            android:textOff=" "
+            android:textOn=" " />
+
+        <ToggleButton
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:id="@+id/paladinToggleButton"
+            android:background="@drawable/toggle_selector"
+            android:layout_margin="6dp"
+            android:textOff=" "
+            android:textOn=" " />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <ToggleButton
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:id="@+id/priestToggleButton"
+            android:background="@drawable/toggle_selector"
+            android:layout_margin="6dp"
+            android:textOff=" "
+            android:textOn=" " />
+
+        <ToggleButton
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:id="@+id/rogueToggleButton"
+            android:background="@drawable/toggle_selector"
+            android:layout_margin="6dp"
+            android:textOff=" "
+            android:textOn=" " />
+
+        <ToggleButton
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:id="@+id/shamanToggleButton"
+            android:background="@drawable/toggle_selector"
+            android:layout_margin="6dp"
+            android:textOff=" "
+            android:textOn=" " />
+
+        <ToggleButton
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:id="@+id/warlockToggleButton"
+            android:background="@drawable/toggle_selector"
+            android:layout_margin="6dp"
+            android:textOff=" "
+            android:textOn=" " />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <ToggleButton
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:id="@+id/hunterToggleButton"
+            android:background="@drawable/toggle_selector"
+            android:layout_margin="6dp"
+            android:textOff=" "
+            android:textOn=" " />
+
+        <ToggleButton
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:id="@+id/druidToggleButton"
+            android:background="@drawable/toggle_selector"
+            android:layout_margin="6dp"
+            android:textOff=" "
+            android:textOn=" " />
+    </LinearLayout>
+
+</LinearLayout>

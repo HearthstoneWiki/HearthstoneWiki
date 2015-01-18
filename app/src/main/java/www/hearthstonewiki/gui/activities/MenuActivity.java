@@ -5,11 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.UriMatcher;
-import android.content.res.Resources;
 import android.database.Cursor;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.support.v4.content.LocalBroadcastManager;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -23,7 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.squareup.picasso.Picasso;
+//import com.squareup.picasso.Picasso;
 
 import www.hearthstonewiki.R;
 import www.hearthstonewiki.db.DatabaseHelper;
@@ -44,10 +40,10 @@ public class MenuActivity extends Activity {
 
         setContentView(R.layout.activity_main);
 
-        ImageView iv = (ImageView)findViewById(R.id.imageView);
-        Picasso.with(this).load("http://wow.zamimg.com/images/hearthstone/cards/enus/original/EX1_165.png")
-                .resize(434, 658)
-                .into(iv);
+        //ImageView iv = (ImageView)findViewById(R.id.imageView);
+        //Picasso.with(this).load("http://wow.zamimg.com/images/hearthstone/cards/enus/original/EX1_165.png")
+        //        .resize(434, 658)
+        //        .into(iv);
 
 
         IntentFilter connectionStatusFilter = new IntentFilter( APIService.CONNECTION_STATUS_INTENT );
@@ -67,7 +63,9 @@ public class MenuActivity extends Activity {
         lookCardsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MenuActivity.this, CardsActivity.class);
+                //Log.d("tag", "cards");
+                Intent i = new Intent(MenuActivity.this, CardListActivity.class);
+                //Intent i = new Intent(MenuActivity.this, CardsActivity.class);
                 startActivity(i);
             }
         });
