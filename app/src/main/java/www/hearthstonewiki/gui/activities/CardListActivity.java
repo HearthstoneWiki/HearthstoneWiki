@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.res.Configuration;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,7 +39,7 @@ public class CardListActivity extends Activity implements
     private String mSelectedHero = null;
 
     private boolean mIsLandscape;
-    private boolean mIsPortait;
+    private boolean mIsPortrait;
 
     public static final String SEARCHING_STRING = "searching_string";
     public static final String SELECTED_HERO = "selected_hero";
@@ -55,7 +54,7 @@ public class CardListActivity extends Activity implements
             mSelectedHero = savedInstanceState.getString(SELECTED_HERO);
         }
 
-        mIsPortait = getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
+        mIsPortrait = getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
         mIsLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
 
 
@@ -64,7 +63,7 @@ public class CardListActivity extends Activity implements
 
         CardListFragment cardListFragment = (CardListFragment) fm.findFragmentByTag(CardListFragment.CARD_LIST_FRAGMENT_TAG);
         if (cardListFragment != null) {
-            if (mIsPortait) {
+            if (mIsPortrait) {
                 FilterFragment filterFragment = (FilterFragment) fm.findFragmentById(R.id.filterFragment);
                 ft.hide(filterFragment);
                 ft.commit();
@@ -113,7 +112,7 @@ public class CardListActivity extends Activity implements
         FragmentTransaction ft = fm.beginTransaction();
 
 
-        if (mIsPortait) { // Если portrait
+        if (mIsPortrait) { // Если portrait
             FilterFragment filterFragment = (FilterFragment) fm.findFragmentById(R.id.filterFragment);
             if (!filterFragment.isHidden()) {
                 ft.hide(filterFragment);

@@ -9,6 +9,9 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
@@ -31,6 +34,9 @@ import java.util.ArrayList;
  * Created by uzzz on 15.12.14.
  */
 public class APIConnector {
+
+    private static final int CONNECTION_TIME_OUT = 1000;
+    private static final int SOCKET_TME_OUT = 1000;
 
     public APIConnector() {}
 
@@ -68,7 +74,7 @@ public class APIConnector {
             HttpResponse response = client.execute(request);
             InputStream in = response.getEntity().getContent();
             jsonStr = readStream(in);
-            Log.w("urlConnection", jsonStr);
+            Log.w("clientConnection", jsonStr);
 
         } catch (ClientProtocolException e) {
             e.printStackTrace();
@@ -76,6 +82,23 @@ public class APIConnector {
             e.printStackTrace();
         }
         return jsonStr;
+    }
+
+    public boolean isConnected() throws IOException {
+        HttpGet httpGet = new HttpGet("http://google.com");
+        HttpParams httpParameters = new BasicHttpParams();
+
+        int timeoutConnection = CONNECTION_TIME_OUT;
+        HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection);
+
+        int timeoutSocket = SOCKET_TME_OUT;
+        HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
+
+        DefaultHttpClient httpClient = new DefaultHttpClient(httpParameters);
+
+        httpClient.execute(httpGet);
+
+        return true;
     }
 
     private String readStream(InputStream is) {

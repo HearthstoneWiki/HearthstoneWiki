@@ -42,6 +42,5 @@ public class ImageAdapter extends CursorAdapter {
                 .resize(434, 658)
                 .placeholder(pic)
                 .into(imageView);
-        view.setTag(cardID);
     }
 }

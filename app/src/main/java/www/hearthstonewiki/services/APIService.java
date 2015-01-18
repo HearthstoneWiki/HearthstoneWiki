@@ -10,13 +10,9 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,9 +42,6 @@ public class APIService extends IntentService {
     private static final String ALL_CARDS_PATH = API_URL + "/json/AllSets.json";
     private static final String SET_LIST_PATH = API_URL + "/json/SetList.json";
     private static final String VERSION_PATH = API_URL + "/json/version.json";
-
-    private static final int CONNECTION_TIME_OUT = 1000;
-    private static final int SOCKET_TME_OUT = 1000;
 
     private APIConnector mApiConnector;
     private DataProcessor mDataProcessor;
@@ -160,7 +153,6 @@ public class APIService extends IntentService {
                 default:
                     throw new IllegalArgumentException("Wrong status number: " + status);
             }
-
         }
 
         LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
@@ -169,6 +161,10 @@ public class APIService extends IntentService {
 
 
     private void handleActionCheckConnection() {
+
+        //Wrong work of http Url Connection
+        mApiConnector.getDataHttpUrlConnection(VERSION_PATH);
+
         ConnectivityManager cm =
                 (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
 
@@ -176,22 +172,14 @@ public class APIService extends IntentService {
 
         Intent intent = new Intent(API_STATUS_INTENT);
 
-        if ( (activeNetwork != null) && activeNetwork.isConnected() && activeNetwork.isAvailable()) {
+        if ( (activeNetwork != null) &&
+                activeNetwork.isConnected() &&
+                activeNetwork.isAvailable()) {
 
-
-            HttpGet httpGet = new HttpGet("http://google.com");
-            HttpParams httpParameters = new BasicHttpParams();
-
-            int timeoutConnection = CONNECTION_TIME_OUT;
-            HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection);
-
-            int timeoutSocket = SOCKET_TME_OUT;
-            HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
-
-            DefaultHttpClient httpClient = new DefaultHttpClient(httpParameters);
             try {
-                httpClient.execute(httpGet);
-                intent.putExtra(API_STATUS, APIStatus.CONNECTED);
+                if(mApiConnector.isConnected()) {
+                    intent.putExtra(API_STATUS, APIStatus.CONNECTED);
+                }
             }
             catch (ClientProtocolException e) {
                 e.printStackTrace();
