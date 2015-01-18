@@ -25,15 +25,17 @@ public class DatabaseContentProvider extends ContentProvider {
 
     private static final int MAIN = 1;
     private static final int MAIN_ID = 2;
-    private static final int MAIN_FILTER = 3;
-    private static final int MAIN_SEARCH = 4;
+    private static final int MAIN_CLASS = 3;
+    private static final int MAIN_FILTER = 4;
+    private static final int MAIN_SEARCH = 5;
 
     public DatabaseContentProvider() {
         mUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         mUriMatcher.addURI(DatabaseHelper.AUTHORITY, CardDataTable.TABLE_NAME + "/all/", MAIN);
         mUriMatcher.addURI(DatabaseHelper.AUTHORITY, CardDataTable.TABLE_NAME + "/item/*", MAIN_ID);
-        mUriMatcher.addURI(DatabaseHelper.AUTHORITY, CardDataTable.TABLE_NAME + "/filter/*", MAIN_FILTER);
-        mUriMatcher.addURI(DatabaseHelper.AUTHORITY, CardDataTable.TABLE_NAME + "/filter/*/*", MAIN_SEARCH); // filter/class/name
+        mUriMatcher.addURI(DatabaseHelper.AUTHORITY, CardDataTable.TABLE_NAME + "/class/*", MAIN_CLASS);
+        mUriMatcher.addURI(DatabaseHelper.AUTHORITY, CardDataTable.TABLE_NAME + "/filter/*/*", MAIN_FILTER); // filter/class/name
+        mUriMatcher.addURI(DatabaseHelper.AUTHORITY, CardDataTable.TABLE_NAME + "/search/*", MAIN_SEARCH);
 
         mProjectionMap = new HashMap<String, String>();
         mProjectionMap.put(CardDataTable._ID, CardDataTable._ID);
@@ -138,7 +140,7 @@ public class DatabaseContentProvider extends ContentProvider {
                 selectionArgs = DatabaseUtils.appendSelectionArgs(selectionArgs,
                         new String[]{uri.getLastPathSegment()});
                 break;
-            case MAIN_FILTER:
+            case MAIN_CLASS:
                 SQLiteDatabase db = mOpenHelper.getReadableDatabase();
                 selectionArgs = DatabaseUtils.appendSelectionArgs(selectionArgs,
                         new String []{uri.getLastPathSegment()});
@@ -147,7 +149,7 @@ public class DatabaseContentProvider extends ContentProvider {
                         " WHERE " + CardDataTable.COLUMN_CLASS +
                         "=? " + " ORDER BY " + CardDataTable.COLUMN_COST + " ASC";
                 return db.rawQuery(query, selectionArgs);
-            case MAIN_SEARCH:
+            case MAIN_FILTER:
                 db = mOpenHelper.getReadableDatabase();
                 selectionArgs = DatabaseUtils.appendSelectionArgs(selectionArgs,
                         new String []{uri.getPathSegments().get(uri.getPathSegments().size() - 2)});
@@ -156,6 +158,17 @@ public class DatabaseContentProvider extends ContentProvider {
                 query = "SELECT " + proj + " FROM " + CardDataTable.TABLE_NAME +
                         " WHERE " + CardDataTable.COLUMN_CLASS +
                         "=? " + " AND (" + CardDataTable.COLUMN_NAME + " LIKE " +
+                        searchedName + " OR " + CardDataTable.COLUMN_TEXT + " LIKE " +
+                        searchedName + ") ORDER BY " + CardDataTable.COLUMN_COST + " ASC";
+                Log.e("tag", query);
+                Log.e("tag", selectionArgs[0]);
+                return db.rawQuery(query, selectionArgs);
+            case MAIN_SEARCH:
+                db = mOpenHelper.getReadableDatabase();
+                proj = buildProjection(projection);
+                searchedName = "'%" + uri.getLastPathSegment() + "%'";
+                query = "SELECT " + proj + " FROM " + CardDataTable.TABLE_NAME +
+                        " WHERE " + "(" + CardDataTable.COLUMN_NAME + " LIKE " +
                         searchedName + " OR " + CardDataTable.COLUMN_TEXT + " LIKE " +
                         searchedName + ") ORDER BY " + CardDataTable.COLUMN_COST + " ASC";
                 Log.e("tag", query);

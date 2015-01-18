@@ -23,8 +23,12 @@ public class CardDataTable implements BaseColumns{
             = Uri.parse("content://" + DatabaseHelper.AUTHORITY + "/card_data/all/");
     public static final Uri CARD_URI_ID
             = Uri.parse("content://" + DatabaseHelper.AUTHORITY + "/card_data/item/");
+    public static final Uri CARD_URI_CLASS
+            = Uri.parse("content://" + DatabaseHelper.AUTHORITY + "/card_data/class/");
     public static final Uri CARD_URI_FILTER
             = Uri.parse("content://" + DatabaseHelper.AUTHORITY + "/card_data/filter/");
+    public static final Uri CARD_URI_SEARCH
+            = Uri.parse("content://" + DatabaseHelper.AUTHORITY + "/card_data/search/");
 
     public static final String CONTENT_TYPE = "www.hearthstonewiki/db.table.cards";
     public static final String CONTENT_ITEM_TYPE = "www.hearthstonewiki/db.table.card_item";
