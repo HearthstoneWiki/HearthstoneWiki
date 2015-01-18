@@ -21,7 +21,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.5"
-        android:id="@+id/cardInfoFrameLayout">
+        android:id="@+id/cardInfoFrameLayout"
+        android:background="@drawable/bg_neutral">
 
         <LinearLayout
             android:orientation="vertical"
