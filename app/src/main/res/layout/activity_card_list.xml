@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/cardInfoFrameLayout"
-        android:paddingTop="50dp"
+        android:paddingTop="60dp"
         android:background="@drawable/bg_neutral">
 
         <LinearLayout
