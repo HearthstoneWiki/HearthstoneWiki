@@ -4,8 +4,8 @@ import android.app.ListFragment;
 import android.app.LoaderManager;
 import android.content.CursorLoader;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
-import android.text.Html;
 import android.widget.SimpleCursorAdapter;
 
 import www.hearthstonewiki.R;
@@ -41,7 +41,10 @@ public class LoaderFragment extends ListFragment implements LoaderManager.Loader
 
     @Override
     public android.content.Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        CursorLoader cl = new CursorLoader(getActivity(), CardDataTable.CONTENT_URI,
+        //CursorLoader cl = new CursorLoader(getActivity(), CardDataTable.CARD_URI,
+        //        PROJECTION, null, null, null);
+        CursorLoader cl = new CursorLoader(getActivity(),
+                Uri.withAppendedPath(CardDataTable.CARD_URI_FILTER, "/Warlock"),
                 PROJECTION, null, null, null);
         return cl;
     }

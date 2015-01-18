@@ -30,7 +30,7 @@
         </activity>
 
         <provider
-            android:name=".db.DatabaseContentProvider"
+            android:name=".db.providers.DatabaseContentProvider"
             android:authorities="www.hearthstone-wiki"
             android:enabled="true"
             android:exported="true" >

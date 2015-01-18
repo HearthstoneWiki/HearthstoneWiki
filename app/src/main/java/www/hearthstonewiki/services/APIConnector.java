@@ -1,39 +1,81 @@
 package www.hearthstonewiki.services;
 
 
+import android.content.Entity;
 import android.util.Log;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
 
 /**
  * Created by uzzz on 15.12.14.
  */
 public class APIConnector {
 
-    private static final String API_URL = "http://hearthstonejson.com//json/AllSets.json";
-    private HttpURLConnection urlConnection;
+    public APIConnector() {}
 
-    public String getUpdates() {
-        JSONObject jsonObj;
+    public String getDataHttpUrlConnection(String urlStr) {
+        String jsonStr = null;
+        HttpURLConnection urlConnection = null;
         try {
-
-            URL langUrl = new URL(API_URL);
-            urlConnection = (HttpURLConnection) langUrl.openConnection();
+            URL url = new URL(urlStr);
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("GET");
+            urlConnection.setRequestProperty("Accept", "text/plain charset=utf-8");
+            urlConnection.connect();
             InputStream is = urlConnection.getInputStream();
-            String jsonStr = readStream(is);
-            Log.d("tag", jsonStr);
+            jsonStr = readStream(is);
             urlConnection.disconnect();
-            return jsonStr;
+            Log.w("urlConnection", jsonStr);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (urlConnection != null) {
+                urlConnection.disconnect();
+            }
         }
-        catch (IOException e){
+        return jsonStr;
+    }
+
+    public String getDataHttpClient(String urlStr) {
+        String jsonStr = null;
+        try {
+            HttpClient client = new DefaultHttpClient();
+            HttpGet request = new HttpGet(urlStr);
+            request.setHeader("Accept", "text/plain");
+
+            HttpResponse response = client.execute(request);
+            InputStream in = response.getEntity().getContent();
+            jsonStr = readStream(in);
+            Log.w("urlConnection", jsonStr);
+
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return jsonStr;
     }
 
     private String readStream(InputStream is) {

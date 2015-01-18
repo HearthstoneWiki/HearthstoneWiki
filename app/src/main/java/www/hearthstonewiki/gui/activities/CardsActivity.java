@@ -27,10 +27,6 @@ public class CardsActivity extends Activity {
         getFragmentManager().beginTransaction()
                 .replace(android.R.id.content, new LoaderFragment())
                 .commit();
-//        ContentValues v = new ContentValues();
-//        v.put("_id", 3);
-//        v.put("description", "LaaaaaL");
-//        getContentResolver().insert(CardDataTable.CONTENT_URI, v);
     }
 
 

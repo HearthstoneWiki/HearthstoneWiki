@@ -1,4 +1,4 @@
-package www.hearthstonewiki.db;
+package www.hearthstonewiki.db.providers;
 
 import android.content.ContentProvider;
 import android.content.ContentUris;
@@ -14,29 +14,33 @@ import android.util.Log;
 
 import java.util.HashMap;
 
+import www.hearthstonewiki.db.DatabaseHelper;
 import www.hearthstonewiki.db.tables.CardDataTable;
 
 public class DatabaseContentProvider extends ContentProvider {
 
-    private SQLiteDatabase database;
     private HashMap<String, String> mProjectionMap;
     private UriMatcher mUriMatcher;
     private DatabaseHelper mOpenHelper;
 
     private static final int MAIN = 1;
     private static final int MAIN_ID = 2;
+    private static final int MAIN_FILTER = 3;
+    private static final int MAIN_SEARCH = 4;
 
     public DatabaseContentProvider() {
         mUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-        mUriMatcher.addURI(DatabaseHelper.AUTHORITY, CardDataTable.TABLE_NAME + "/all", MAIN);
-        mUriMatcher.addURI(DatabaseHelper.AUTHORITY, CardDataTable.TABLE_NAME + "/item", MAIN_ID);
-
+        mUriMatcher.addURI(DatabaseHelper.AUTHORITY, CardDataTable.TABLE_NAME + "/all/", MAIN);
+        mUriMatcher.addURI(DatabaseHelper.AUTHORITY, CardDataTable.TABLE_NAME + "/item/*", MAIN_ID);
+        mUriMatcher.addURI(DatabaseHelper.AUTHORITY, CardDataTable.TABLE_NAME + "/filter/*", MAIN_FILTER);
+        mUriMatcher.addURI(DatabaseHelper.AUTHORITY, CardDataTable.TABLE_NAME + "/filter/*/*", MAIN_SEARCH); // filter/class/name
 
         mProjectionMap = new HashMap<String, String>();
         mProjectionMap.put(CardDataTable._ID, CardDataTable._ID);
         mProjectionMap.put(CardDataTable.COLUMN_NAME, CardDataTable.COLUMN_NAME);
         mProjectionMap.put(CardDataTable.COLUMN_TEXT, CardDataTable.COLUMN_TEXT);
-        mProjectionMap.put(CardDataTable.COLUMN_ID, CardDataTable.COLUMN_ID);
+        mProjectionMap.put(CardDataTable.COLUMN_COST, CardDataTable.COLUMN_COST);
+        mProjectionMap.put(CardDataTable.COLUMN_CLASS, CardDataTable.COLUMN_CLASS);
     }
 
     @Override
@@ -52,7 +56,6 @@ public class DatabaseContentProvider extends ContentProvider {
                 break;
 
             case MAIN_ID:
-
                 finalWhere = DatabaseUtils.concatenateWhere(
                         CardDataTable._ID + " = " + ContentUris.parseId(uri), selection);
                 count = db.delete(CardDataTable.TABLE_NAME, finalWhere, selectionArgs);
@@ -105,7 +108,7 @@ public class DatabaseContentProvider extends ContentProvider {
         long rowId = db.insert(CardDataTable.TABLE_NAME, null, values);
 
         if (rowId > 0) {
-            Uri noteUri = ContentUris.withAppendedId(CardDataTable.CONTENT_ID_URI_BASE, rowId);
+            Uri noteUri = ContentUris.withAppendedId(CardDataTable.CARD_URI_ID, rowId);
             getContext().getContentResolver().notifyChange(noteUri, null);
             return noteUri;
         }
@@ -125,7 +128,6 @@ public class DatabaseContentProvider extends ContentProvider {
         SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
         qb.setTables(CardDataTable.TABLE_NAME);
 
-        System.out.print(mUriMatcher.match(uri));
         switch (mUriMatcher.match(uri)) {
             case MAIN:
                 qb.setProjectionMap(mProjectionMap);
@@ -136,6 +138,29 @@ public class DatabaseContentProvider extends ContentProvider {
                 selectionArgs = DatabaseUtils.appendSelectionArgs(selectionArgs,
                         new String[]{uri.getLastPathSegment()});
                 break;
+            case MAIN_FILTER:
+                SQLiteDatabase db = mOpenHelper.getReadableDatabase();
+                selectionArgs = DatabaseUtils.appendSelectionArgs(selectionArgs,
+                        new String []{uri.getLastPathSegment()});
+                String proj = buildProjection(projection);
+                String query = "SELECT " + proj + " FROM " + CardDataTable.TABLE_NAME +
+                        " WHERE " + CardDataTable.COLUMN_CLASS +
+                        "=? " + " ORDER BY " + CardDataTable.COLUMN_COST + " ASC";
+                return db.rawQuery(query, selectionArgs);
+            case MAIN_SEARCH:
+                db = mOpenHelper.getReadableDatabase();
+                selectionArgs = DatabaseUtils.appendSelectionArgs(selectionArgs,
+                        new String []{uri.getPathSegments().get(uri.getPathSegments().size() - 2)});
+                proj = buildProjection(projection);
+                String searchedName = "'%" + uri.getLastPathSegment() + "%'";
+                query = "SELECT " + proj + " FROM " + CardDataTable.TABLE_NAME +
+                        " WHERE " + CardDataTable.COLUMN_CLASS +
+                        "=? " + " AND (" + CardDataTable.COLUMN_NAME + " LIKE " +
+                        searchedName + " OR " + CardDataTable.COLUMN_TEXT + " LIKE " +
+                        searchedName + ") ORDER BY " + CardDataTable.COLUMN_COST + " ASC";
+                Log.e("tag", query);
+                Log.e("tag", selectionArgs[0]);
+                return db.rawQuery(query, selectionArgs);
             default:
                 throw new IllegalArgumentException("Unknown URI " + uri + " with " + mUriMatcher.match(uri));
         }
@@ -146,12 +171,23 @@ public class DatabaseContentProvider extends ContentProvider {
 
         SQLiteDatabase db = mOpenHelper.getReadableDatabase();
 
-        Log.d("q", qb.buildQuery(projection, selection, null, null, sortOrder, "1"));
+        Log.d("q", qb.buildQuery(projection, selection, null, null, sortOrder, null));
 
         Cursor c = qb.query(db, projection, selection, selectionArgs,
                 null /* no group */, null /* no filter */, sortOrder);
         c.setNotificationUri(getContext().getContentResolver(), uri);
         return c;
+    }
+
+    private String buildProjection(String[] projection) {
+        StringBuilder sb = new StringBuilder();
+        for(int i = 0; i < projection.length - 1; i++) {
+            sb = sb.append(projection[i]);
+            sb.append(", ");
+        }
+        if (projection.length > 1)
+            sb.append(projection[projection.length - 1]);
+        return sb.toString();
     }
 
     @Override
