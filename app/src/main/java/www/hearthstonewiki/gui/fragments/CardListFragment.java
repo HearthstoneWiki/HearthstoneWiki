@@ -93,14 +93,11 @@ public class CardListFragment extends Fragment implements AbsListView.OnItemClic
             mSelectedHero = getArguments().getString(ARG_SELECTED_HERO);
         }
 
-        //mAdapter = new ArrayAdapter<String>(getActivity(),
-        //        android.R.layout.simple_list_item_1, android.R.id.text1, testList);
-
-        Cursor c = getActivity().getContentResolver().query(Uri.withAppendedPath(CardDataTable.CARD_URI_FILTER, "/Warlock"),
+        Cursor c = getActivity().getContentResolver().query(Uri.withAppendedPath(CardDataTable.CARD_URI_FILTER, "/" + mSelectedHero),
                 PROJECTION, null, null, null
         );
 
-        mAdapter = new ImageAdapter(getActivity(), c, 0);
+        mAdapter = new ImageAdapter(getActivity(), null, 0);
     }
 
     @Override
@@ -111,6 +108,8 @@ public class CardListFragment extends Fragment implements AbsListView.OnItemClic
         // Set the adapter
         mGridView = (GridView) view.findViewById(android.R.id.list);
         ((AdapterView<ListAdapter>) mGridView).setAdapter(mAdapter);
+
+        getLoaderManager().initLoader(0, null, this);
 
         // Set OnItemClickListener so we can be notified on item clicks
         mGridView.setOnItemClickListener(this);
@@ -164,19 +163,20 @@ public class CardListFragment extends Fragment implements AbsListView.OnItemClic
         mSearchingStr = searchingStr;
         mSelectedHero = selectedHero;
 
-        //mAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, testList);
-        Cursor c = getActivity().getContentResolver().query(Uri.withAppendedPath(CardDataTable.CARD_URI_FILTER, "/Warlock"),
-                PROJECTION, null, null, null
-        );
-        mAdapter = new ImageAdapter(getActivity(), null, 0);
-        mAdapter.swapCursor(c);
-        mGridView = (GridView) getActivity().findViewById(android.R.id.list);
-        ((AdapterView<ListAdapter>) mGridView).setAdapter(mAdapter);
+//        //mAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, android.R.id.text1, testList);
+//        Cursor c = getActivity().getContentResolver().query(Uri.withAppendedPath(CardDataTable.CARD_URI_FILTER, "/" + mSelectedHero),
+//                PROJECTION, null, null, null
+//        );
+//        mAdapter = new ImageAdapter(getActivity(), null, 0);
+//        mAdapter.swapCursor(c);
+//        mGridView = (GridView) getActivity().findViewById(android.R.id.list);
+//        ((AdapterView<ListAdapter>) mGridView).setAdapter(mAdapter);
+//
+//        // Set OnItemClickListener so we can be notified on item clicks
+//        mGridView.setOnItemClickListener(this);
 
-        // Set OnItemClickListener so we can be notified on item clicks
-        mGridView.setOnItemClickListener(this);
+        getLoaderManager().restartLoader(0, null, this);
 
-        Toast.makeText(getActivity(), "In fragment " + mSearchingStr + " " + mSelectedHero, Toast.LENGTH_SHORT).show();
     }
 
     public interface OnFragmentInteractionListener {
@@ -190,7 +190,7 @@ public class CardListFragment extends Fragment implements AbsListView.OnItemClic
         //CursorLoader cl = new CursorLoader(getActivity(), CardDataTable.CARD_URI,
         //        PROJECTION, null, null, null);
         CursorLoader cl = new CursorLoader(getActivity(),
-                Uri.withAppendedPath(CardDataTable.CARD_URI_FILTER, "/Warlock"),
+                Uri.withAppendedPath(CardDataTable.CARD_URI_FILTER, "/" + mSelectedHero),
                 PROJECTION, null, null, null);
         return cl;
     }
