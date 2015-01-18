@@ -10,7 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/cardInfoFrameLayout"
-        android:paddingTop="50dp">
+        android:paddingTop="50dp"
+        android:background="@drawable/bg_neutral">
 
         <LinearLayout
             android:orientation="vertical"
@@ -39,9 +40,16 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@drawable/bg_all_heroes"
+            android:background="#ff373737"
             android:id="@+id/selectedHeroView"
             android:visibility="invisible">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/showFilterImageButton"
+                android:src="@drawable/down_ico"
+                android:contentDescription="@string/show_filter_img_btn" />
 
             <TextView
                 android:layout_width="0dp"
@@ -57,12 +65,6 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp" />
 
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/showFilterImageButton"
-                android:src="@drawable/down_ico"
-                android:contentDescription="@string/show_filter_img_btn" />
         </LinearLayout>
 
     </LinearLayout>

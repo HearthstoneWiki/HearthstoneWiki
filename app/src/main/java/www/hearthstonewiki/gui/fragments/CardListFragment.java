@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -186,14 +187,16 @@ public class CardListFragment extends Fragment implements AbsListView.OnItemClic
 
         android.net.Uri uri;
 
-        if (mSelectedHero != null && mSearchingStr != null) {
-            uri = Uri.withAppendedPath(CardDataTable.CARD_URI_FILTER, "/" + mSelectedHero + "/" + mSearchingStr);
+        Toast.makeText(getActivity(), "In fragment " + mSearchingStr + " " + mSelectedHero, Toast.LENGTH_SHORT).show();
+
+        if (mSelectedHero != null && mSearchingStr != null && !mSearchingStr.equals("")) {
+            uri = Uri.withAppendedPath(CardDataTable.CARD_URI_FILTER, mSelectedHero + "/" + mSearchingStr);
         }
         else if (mSelectedHero != null) {
-            uri = Uri.withAppendedPath(CardDataTable.CARD_URI_CLASS, "/" + mSelectedHero);
+            uri = Uri.withAppendedPath(CardDataTable.CARD_URI_CLASS, mSelectedHero);
         }
-        else if (mSearchingStr != null) {
-            uri = Uri.withAppendedPath(CardDataTable.CARD_URI_SEARCH, "/" + mSearchingStr);
+        else if (mSearchingStr != null && !mSearchingStr.equals("")) {
+            uri = Uri.withAppendedPath(CardDataTable.CARD_URI_SEARCH, mSearchingStr);
         }
         else {
             uri = CardDataTable.CARD_URI;

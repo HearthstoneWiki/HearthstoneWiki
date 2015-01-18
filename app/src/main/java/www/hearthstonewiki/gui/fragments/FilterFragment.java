@@ -96,7 +96,9 @@ public class FilterFragment extends Fragment implements ToggleButton.OnCheckedCh
         }
 
         if (mListener != null && mSelectedHeroBtn != null) {
-            mListener.onSwitchHeroInteraction(mHeroesBtnMap.get(mSelectedHeroBtn));
+            EditText editText = (EditText) getActivity().findViewById(R.id.searchEditText);
+            mSearchingString = editText.getText().toString();
+            mListener.onSwitchHeroInteraction(mSearchingString, mHeroesBtnMap.get(mSelectedHeroBtn));
         }
     }
 
@@ -130,6 +132,6 @@ public class FilterFragment extends Fragment implements ToggleButton.OnCheckedCh
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         public void onClickSearchBtnInteraction(String searchingStr, String selectedHero);
-        public void onSwitchHeroInteraction(String selectedHero);
+        public void onSwitchHeroInteraction(String searchingStr, String selectedHero);
     }
 }
