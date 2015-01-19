@@ -1,17 +1,13 @@
-package www.hearthstonewiki.gui.activities;
+package www.hearthstonewiki.gui.adapters;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.CursorAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.SimpleCursorAdapter;
 
 import com.squareup.picasso.Picasso;
 
@@ -34,13 +30,19 @@ public class ImageAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         ImageView imageView = (ImageView) view.findViewById(R.id.cardImageView);
+
         String cardID = cursor.getString(0);
+        String PIC_SERVER_URL = "http://wow.zamimg.com/images/hearthstone/cards/enus/original/";
+        String PIC_EXTENSION = ".png";
+        String url = PIC_SERVER_URL + cardID + PIC_EXTENSION;
+
         Drawable pic = context.getResources().getDrawable(R.drawable.card_back);
-        String url = "http://wow.zamimg.com/images/hearthstone/cards/enus/original/" + cardID + ".png";
+
         Picasso.with(context)
                 .load(url)
-                .resize(434, 658)
+                .resize(434, 585)
                 .placeholder(pic)
+                .centerCrop()
                 .into(imageView);
         view.setTag(cardID);
     }

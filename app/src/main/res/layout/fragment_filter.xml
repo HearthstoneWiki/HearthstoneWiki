@@ -5,7 +5,7 @@
     tools:context="www.hearthstonewiki.gui.fragments.FilterFragment"
     android:orientation="vertical"
     style="@android:style/Theme.DeviceDefault.Light"
-    android:background="#1174ec">
+    android:background="#000000">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -22,6 +22,7 @@
 
             <TextView
                 android:text="@string/searching_title"
+                android:textColor="#ffffff"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/SearchingTitleTextView"
@@ -33,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/searchEditText"
                 android:layout_gravity="center_horizontal"
-                android:singleLine="false"
+                android:singleLine="true"
                 android:textColor="#ffff"
                 android:inputType="text" />
 

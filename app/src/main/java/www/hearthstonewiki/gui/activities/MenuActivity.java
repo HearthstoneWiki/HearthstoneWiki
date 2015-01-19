@@ -14,10 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.squareup.picasso.Picasso;
 import www.hearthstonewiki.R;
 import www.hearthstonewiki.app.HearthstoneWikiApp;
 import www.hearthstonewiki.gui.msg.APIStatusMsg;
@@ -32,7 +30,7 @@ public class MenuActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Button getUpdateButton;
+        Button lookDecsButton;
         Button lookCardsButton;
 
         setContentView(R.layout.activity_main);
@@ -42,30 +40,21 @@ public class MenuActivity extends Activity {
         LocalBroadcastManager.getInstance(this).registerReceiver(updateReceiver, updateStatusFilter);
 
 
-        getUpdateButton = (Button)findViewById(R.id.get_update_button);
-        getUpdateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                APIService.startActionGetUpdate(MenuActivity.this);
-            }
-        });
-
         lookCardsButton = (Button)findViewById(R.id.look_cards_button);
         lookCardsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Log.d("tag", "cards");
                 Intent i = new Intent(MenuActivity.this, CardListActivity.class);
-                //Intent i = new Intent(MenuActivity.this, CardsActivity.class);
                 startActivity(i);
             }
         });
 
-        Button checkConnectionButton = (Button)findViewById(R.id.check_connection_button);
-        checkConnectionButton.setOnClickListener(new View.OnClickListener() {
+        lookDecsButton = (Button)findViewById(R.id.look_decks_button);
+        lookDecsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                APIService.startActionCheckConnection(MenuActivity.this);
+                Intent i = new Intent(MenuActivity.this, DecksActivity.class);
+                startActivity(i);
             }
         });
 

@@ -171,8 +171,6 @@ public class DatabaseContentProvider extends ContentProvider {
                         " WHERE " + "(" + CardDataTable.COLUMN_NAME + " LIKE " +
                         searchedName + " OR " + CardDataTable.COLUMN_TEXT + " LIKE " +
                         searchedName + ") ORDER BY " + CardDataTable.COLUMN_COST + " ASC";
-                Log.e("tag", query);
-                Log.e("tag", selectionArgs[0]);
                 return db.rawQuery(query, selectionArgs);
             default:
                 throw new IllegalArgumentException("Unknown URI " + uri + " with " + mUriMatcher.match(uri));

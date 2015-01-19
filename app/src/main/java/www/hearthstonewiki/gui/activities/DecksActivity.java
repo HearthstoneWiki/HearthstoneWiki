@@ -1,40 +1,25 @@
 package www.hearthstonewiki.gui.activities;
 
 import android.app.Activity;
-import android.content.ContentValues;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-
 import www.hearthstonewiki.R;
-import www.hearthstonewiki.db.tables.CardDataTable;
-import www.hearthstonewiki.services.APIService;
-import www.hearthstonewiki.gui.fragments.LoaderFragment;
 
-/**
- * Created by uzzz on 18.12.14.
- */
-public class CardsActivity extends Activity {
-
+public class DecksActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cards);
-        getFragmentManager().beginTransaction()
-                .replace(android.R.id.content, new LoaderFragment())
-                .commit();
+        setContentView(R.layout.decks_layout);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
+        //getMenuInflater().inflate(R.menu.decks_acivity, menu);
+        return false;
     }
 
     @Override

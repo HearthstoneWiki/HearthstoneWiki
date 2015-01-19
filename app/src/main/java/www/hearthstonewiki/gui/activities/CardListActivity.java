@@ -80,8 +80,8 @@ public class CardListActivity extends Activity implements
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.card_list, menu);
-        return true;
+        //getMenuInflater().inflate(R.menu.card_list, menu);
+        return false;
     }
 
     @Override
@@ -150,7 +150,7 @@ public class CardListActivity extends Activity implements
         FragmentManager fm = getFragmentManager();
         CardListFragment cardListFragment = (CardListFragment) fm.findFragmentByTag(CardListFragment.CARD_LIST_FRAGMENT_TAG);
         if (cardListFragment != null) {
-            Toast.makeText(this, "onSwitchHeroInteraction", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "onSwitchHeroInteraction", Toast.LENGTH_SHORT).show();
             updateSelectedHeroView();
             cardListFragment.applyNewFilter(mSearchingStr, mSelectedHero);
         }
@@ -164,7 +164,7 @@ public class CardListActivity extends Activity implements
         if (mSelectedHero == null) {
             if (selectedHeroText != null)
                 selectedHeroText.setText(ALL);
-            heroBgView.setBackgroundResource(R.drawable.bg_all_heroes);
+            heroBgView.setBackgroundResource(R.drawable.bg_all);
         } else if (mSelectedHero.equals(DRUID)) {
             if (selectedHeroText != null)
             selectedHeroText.setText(R.string.druid_hero_name);
@@ -244,7 +244,6 @@ public class CardListActivity extends Activity implements
             ft.add(R.id.cardInfoFrameLayout, cardDetailFragment, CardDetailFragment.CARD_DETAIL_FRAGMENT_TAG);
             ft.commit();
         }
-
     }
 
     @Override

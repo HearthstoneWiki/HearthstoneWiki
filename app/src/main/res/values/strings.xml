@@ -4,16 +4,14 @@
     <string name="app_name">HearthstoneWiki</string>
     <string name="hello_world">Hello world! <b>Freeze</b></string>
     <string name="action_settings">Settings</string>
-    <string name="action_get_update">Get Update! Broken =( </string>
-    <string name="action_look_cards">Look Cards</string>
-
+    <string name="action_look_decks">Decks</string>
+    <string name="action_look_cards">Cards</string>
     <string name="hearthstone_string">hearthstone</string>
     <string name="hearthstone_logo">hearthstone_logo</string>
     <string name="title_activity_card_list">CardListActivity</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="searching_title">Enter card name</string>
     <string name="heroesButtonText">Heroes Button</string>
-
     <string name="neutral_hero_name">Neutral</string>
     <string name="warrior_hero_name">Warrior</string>
     <string name="mage_hero_name">Mage</string>
@@ -26,8 +24,6 @@
     <string name="druid_hero_name">Druid</string>
     <string name="search_img_btn">Search</string>
     <string name="show_filter_img_btn">Show filter</string>
-
-
     <string name="test_img">TestImage</string>
     <string name="logo_img">LogoImage</string>
     <string name="check_connection">Check Connection</string>
@@ -35,6 +31,8 @@
     <string name="toast_img">toast_img</string>
     <string name="card_detail">Selected card detail</string>
     <string name="close_detail">Close</string>
-
+    <string name="title_activity_decks_acivity">DecksAcivity</string>
+    <string name="comming_soon">Coming Soon</string>
+    <string name="comsun">comsun</string>
 
 </resources>

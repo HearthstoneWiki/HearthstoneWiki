@@ -6,16 +6,14 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name=".app.HearthstoneWikiApp"
         android:allowBackup="true"
         android:icon="@drawable/base"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:name=".app.HearthstoneWikiApp"
-        >
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".gui.activities.MenuActivity"
-            android:label="@string/app_name"
-             >
+            android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -38,6 +36,10 @@
         <activity
             android:name=".gui.activities.CardListActivity"
             android:label="@string/title_activity_card_list" >
+        </activity>
+        <activity
+            android:name=".gui.activities.DecksActivity"
+            android:label="@string/title_activity_decks_acivity" >
         </activity>
     </application>
 

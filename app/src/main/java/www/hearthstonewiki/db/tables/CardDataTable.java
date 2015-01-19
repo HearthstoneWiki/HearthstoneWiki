@@ -33,6 +33,6 @@ public class CardDataTable implements BaseColumns{
     public static final String CONTENT_TYPE = "www.hearthstonewiki/db.table.cards";
     public static final String CONTENT_ITEM_TYPE = "www.hearthstonewiki/db.table.card_item";
 
-    public static final String DEFAULT_SORT_ORDER = COLUMN_NAME + " ASC";
+    public static final String DEFAULT_SORT_ORDER = COLUMN_COST +" ASC, " + COLUMN_NAME + " ASC";
 
 }

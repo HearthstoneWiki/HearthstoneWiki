@@ -7,25 +7,20 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ListAdapter;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.ArrayList;
 
 import www.hearthstonewiki.R;
 
 import www.hearthstonewiki.db.tables.CardDataTable;
-import www.hearthstonewiki.gui.activities.ImageAdapter;
+import www.hearthstonewiki.gui.adapters.ImageAdapter;
 
 /**
  * A fragment representing a list of Items.
@@ -187,7 +182,7 @@ public class CardListFragment extends Fragment implements AbsListView.OnItemClic
 
         android.net.Uri uri;
 
-        Toast.makeText(getActivity(), "In fragment " + mSearchingStr + " " + mSelectedHero, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), "In fragment " + mSearchingStr + " " + mSelectedHero, Toast.LENGTH_SHORT).show();
 
         if (mSelectedHero != null && mSearchingStr != null && !mSearchingStr.equals("")) {
             uri = Uri.withAppendedPath(CardDataTable.CARD_URI_FILTER, mSelectedHero + "/" + mSearchingStr);
