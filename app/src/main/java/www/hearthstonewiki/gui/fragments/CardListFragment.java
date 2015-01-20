@@ -96,18 +96,20 @@ public class CardListFragment extends Fragment implements AbsListView.OnItemClic
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cardlist_grid, container, false);
 
-        // Set the adapter
+
+        //Toast.makeText(getActivity(), "In fragment " + mSearchingStr + " " + mSelectedHero, Toast.LENGTH_SHORT).show();
+
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         mGridView = (GridView) view.findViewById(android.R.id.list);
         ((AdapterView<ListAdapter>) mGridView).setAdapter(mAdapter);
 
         getLoaderManager().initLoader(0, null, this);
 
-        // Set OnItemClickListener so we can be notified on item clicks
         mGridView.setOnItemClickListener(this);
-
-        //Toast.makeText(getActivity(), "In fragment " + mSearchingStr + " " + mSelectedHero, Toast.LENGTH_SHORT).show();
-
-        return view;
     }
 
     @Override

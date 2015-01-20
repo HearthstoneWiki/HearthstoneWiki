@@ -68,6 +68,12 @@ public class FilterFragment extends Fragment implements ToggleButton.OnCheckedCh
         mHeroesBtnMap.put(R.id.hunterToggleButton, CardListActivity.HUNTER);
         mHeroesBtnMap.put(R.id.druidToggleButton, CardListActivity.DRUID);
 
+        return v;
+    }
+
+    @Override
+    public void onViewCreated(View v, Bundle savedInstanceState) {
+
         for (Integer key: mHeroesBtnMap.keySet()) {
             ToggleButton toggleButton;
             toggleButton = (ToggleButton) v.findViewById(key);
@@ -76,8 +82,6 @@ public class FilterFragment extends Fragment implements ToggleButton.OnCheckedCh
 
         ImageButton searchButton = (ImageButton) v.findViewById(R.id.searchButton);
         searchButton.setOnClickListener(this);
-
-        return v;
     }
 
     @Override
