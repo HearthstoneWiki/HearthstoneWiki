@@ -10,8 +10,10 @@ import android.widget.CursorAdapter;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import www.hearthstonewiki.R;
+import www.hearthstonewiki.gui.views.CardTransformation;
 
 public class ImageAdapter extends CursorAdapter {
 
@@ -38,11 +40,13 @@ public class ImageAdapter extends CursorAdapter {
 
         Drawable pic = context.getResources().getDrawable(R.drawable.card_back);
 
+        Transformation tr = new CardTransformation();
+
         Picasso.with(context)
                 .load(url)
                 .resize(434, 585)
                 .placeholder(pic)
-                .centerCrop()
+                .transform(tr)
                 .into(imageView);
         view.setTag(cardID);
     }
