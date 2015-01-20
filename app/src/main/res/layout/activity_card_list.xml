@@ -58,6 +58,7 @@
                 android:text="@string/neutral_hero_name"
                 android:id="@+id/selectedHeroTextView"
                 android:layout_weight="1"
+                android:drawableLeft="@drawable/down_ico"
                 android:layout_gravity="center_vertical"
                 android:textColor="#ff875c11"
                 android:textStyle="bold|italic"
