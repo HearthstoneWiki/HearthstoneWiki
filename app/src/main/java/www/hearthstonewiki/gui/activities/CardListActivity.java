@@ -69,10 +69,12 @@ public class CardListActivity extends Activity implements
                 FilterFragment filterFragment = (FilterFragment) fm.findFragmentById(R.id.filterFragment);
                 ft.hide(filterFragment);
                 ft.commit();
-                ImageButton showFilterImgBtn = (ImageButton) findViewById(R.id.showFilterImageButton);
-                showFilterImgBtn.setOnClickListener(this);
             }
             updateSelectedHeroView();
+        }
+        if (mIsPortrait) {
+            ImageButton showFilterImgBtn = (ImageButton) findViewById(R.id.showFilterImageButton);
+            showFilterImgBtn.setOnClickListener(this);
         }
     }
 
@@ -147,12 +149,29 @@ public class CardListActivity extends Activity implements
         mSearchingStr = searchingStr;
         mSelectedHero = selectedHero;
 
+        updateSelectedHeroView();
+
         FragmentManager fm = getFragmentManager();
+
         CardListFragment cardListFragment = (CardListFragment) fm.findFragmentByTag(CardListFragment.CARD_LIST_FRAGMENT_TAG);
         if (cardListFragment != null) {
             //Toast.makeText(this, "onSwitchHeroInteraction", Toast.LENGTH_SHORT).show();
-            updateSelectedHeroView();
+
             cardListFragment.applyNewFilter(mSearchingStr, mSelectedHero);
+        }
+        else {
+            FragmentTransaction ft = fm.beginTransaction();
+            cardListFragment = CardListFragment.newInstance(mSearchingStr, mSelectedHero);
+            cardListFragment.setRetainInstance(true);
+            ft.add(R.id.cardListLinearLayout, cardListFragment, CardListFragment.CARD_LIST_FRAGMENT_TAG);
+            ft.commit();
+        }
+
+        CardDetailFragment cardDetailFragment = (CardDetailFragment) fm.findFragmentByTag(CardDetailFragment.CARD_DETAIL_FRAGMENT_TAG);
+        if (cardDetailFragment != null) {
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.remove(cardDetailFragment);
+            ft.commit();
         }
     }
 
@@ -219,6 +238,10 @@ public class CardListActivity extends Activity implements
             FragmentTransaction ft = fm.beginTransaction();
             FilterFragment filterFragment = (FilterFragment) fm.findFragmentById(R.id.filterFragment);
             if (filterFragment.isHidden()) {
+                CardDetailFragment cardDetailFragment = (CardDetailFragment) fm.findFragmentByTag(CardDetailFragment.CARD_DETAIL_FRAGMENT_TAG);
+                if (cardDetailFragment != null) {
+                    ft.remove(cardDetailFragment);
+                }
                 ft.show(filterFragment);
                 ((ImageButton)view).setImageResource(R.drawable.up_ico);
             }

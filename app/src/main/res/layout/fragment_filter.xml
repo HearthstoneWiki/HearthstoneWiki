@@ -5,7 +5,8 @@
     tools:context="www.hearthstonewiki.gui.fragments.FilterFragment"
     android:orientation="vertical"
     style="@android:style/Theme.DeviceDefault.Light"
-    android:background="#000000">
+    android:background="#a5000000"
+    android:paddingBottom="15dp">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -35,7 +36,7 @@
                 android:id="@+id/searchEditText"
                 android:layout_gravity="center_horizontal"
                 android:singleLine="true"
-                android:textColor="#ffff"
+                android:textColor="#ffafafaf"
                 android:inputType="text" />
 
         </LinearLayout>
@@ -46,7 +47,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/searchButton"
             android:src="@android:drawable/ic_menu_search"
-            android:contentDescription="@string/search_img_btn" />
+            android:contentDescription="@string/search_img_btn"
+            android:background="#00ffffff" />
 
     </LinearLayout>
 
@@ -57,8 +59,8 @@
         android:layout_gravity="center_horizontal">
 
         <ToggleButton
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="62dp"
+            android:layout_height="62dp"
             android:id="@+id/neutralToggleButton"
             android:background="@drawable/toggle_neutral"
             android:layout_gravity="center"
@@ -67,8 +69,8 @@
             android:textOn=" " />
 
         <ToggleButton
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="62dp"
+            android:layout_height="62dp"
             android:id="@+id/warriorToggleButton"
             android:background="@drawable/toggle_warrior"
             android:layout_margin="6dp"
@@ -76,8 +78,8 @@
             android:textOn=" " />
 
         <ToggleButton
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="62dp"
+            android:layout_height="62dp"
             android:id="@+id/mageToggleButton"
             android:background="@drawable/toggle_mage"
             android:layout_margin="6dp"
@@ -85,8 +87,8 @@
             android:textOn=" " />
 
         <ToggleButton
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="62dp"
+            android:layout_height="62dp"
             android:id="@+id/paladinToggleButton"
             android:background="@drawable/toggle_paladin"
             android:layout_margin="6dp"
@@ -101,8 +103,8 @@
         android:layout_gravity="center_horizontal">
 
         <ToggleButton
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="62dp"
+            android:layout_height="62dp"
             android:id="@+id/priestToggleButton"
             android:background="@drawable/toggle_priest"
             android:layout_margin="6dp"
@@ -110,8 +112,8 @@
             android:textOn=" " />
 
         <ToggleButton
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="62dp"
+            android:layout_height="62dp"
             android:id="@+id/rogueToggleButton"
             android:background="@drawable/toggle_rogue"
             android:layout_margin="6dp"
@@ -119,8 +121,8 @@
             android:textOn=" " />
 
         <ToggleButton
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="62dp"
+            android:layout_height="62dp"
             android:id="@+id/shamanToggleButton"
             android:background="@drawable/toggle_shaman"
             android:layout_margin="6dp"
@@ -128,8 +130,8 @@
             android:textOn=" " />
 
         <ToggleButton
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="62dp"
+            android:layout_height="62dp"
             android:id="@+id/warlockToggleButton"
             android:background="@drawable/toggle_warlock"
             android:layout_margin="6dp"
@@ -144,8 +146,8 @@
         android:layout_gravity="center_horizontal">
 
         <ToggleButton
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="62dp"
+            android:layout_height="62dp"
             android:id="@+id/hunterToggleButton"
             android:background="@drawable/toggle_hunter"
             android:layout_margin="6dp"
@@ -153,8 +155,8 @@
             android:textOn=" " />
 
         <ToggleButton
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="62dp"
+            android:layout_height="62dp"
             android:id="@+id/druidToggleButton"
             android:background="@drawable/toggle_druid"
             android:layout_margin="6dp"

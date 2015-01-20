@@ -40,31 +40,31 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="#ff373737"
+            android:background="#a5000000"
             android:id="@+id/selectedHeroView"
-            android:visibility="invisible">
+            android:visibility="visible">
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/showFilterImageButton"
-                android:src="@drawable/down_ico"
+                android:src="@drawable/up_ico"
                 android:contentDescription="@string/show_filter_img_btn" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/neutral_hero_name"
                 android:id="@+id/selectedHeroTextView"
                 android:layout_weight="1"
                 android:drawableLeft="@drawable/down_ico"
                 android:layout_gravity="center_vertical"
-                android:textColor="#ff875c11"
+                android:textColor="#ffafafaf"
                 android:textStyle="bold|italic"
                 android:textSize="35sp"
                 android:paddingLeft="10dp"
-                android:paddingRight="10dp" />
+                android:paddingRight="10dp"
+                android:text="Select the hero!" />
 
         </LinearLayout>
 

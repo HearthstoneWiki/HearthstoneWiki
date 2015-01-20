@@ -7,6 +7,7 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -23,7 +24,7 @@ import www.hearthstonewiki.R;
  * create an instance of this fragment.
  *
  */
-public class CardDetailFragment extends Fragment implements View.OnClickListener{
+public class CardDetailFragment extends Fragment implements View.OnClickListener {
 
     public static final String CARD_DETAIL_FRAGMENT_TAG = "cardDetailFragment";
 
@@ -57,26 +58,23 @@ public class CardDetailFragment extends Fragment implements View.OnClickListener
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_card_detale, container, false);
+        return view;
+    }
 
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         ImageView cardImageView = (ImageView) view.findViewById(R.id.cardDetailImageView);
         String url = "http://wow.zamimg.com/images/hearthstone/cards/enus/original/" + mCardId + ".png";
         Picasso.with(getActivity())
                 .load(url)
                 .resize(800, 1200)
                 .into(cardImageView);
-
         ImageButton closeButton = (ImageButton) view.findViewById(R.id.closeDetailImageButton);
         closeButton.setOnClickListener(this);
-
-        return view;
+        view.setOnClickListener(this);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onCloseFragmentInteraction();
-        }
-    }
 
     @Override
     public void onAttach(Activity activity) {
@@ -97,8 +95,10 @@ public class CardDetailFragment extends Fragment implements View.OnClickListener
 
     @Override
     public void onClick(View view) {
-        if (mListener != null) {
-            mListener.onCloseFragmentInteraction();
+        if (view.getId() == R.id.closeDetailImageButton) {
+            if (mListener != null) {
+                mListener.onCloseFragmentInteraction();
+            }
         }
     }
 
