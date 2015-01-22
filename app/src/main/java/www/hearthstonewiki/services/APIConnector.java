@@ -72,7 +72,7 @@ public class APIConnector {
     }
 
     public boolean isConnected() throws IOException {
-        HttpGet httpGet = new HttpGet("http://google.com");
+        HttpGet httpGet = new HttpGet("http://74.125.232.97");
         HttpParams httpParameters = new BasicHttpParams();
 
         int timeoutConnection = CONNECTION_TIME_OUT;

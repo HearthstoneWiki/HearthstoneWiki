@@ -25,6 +25,7 @@ import java.util.List;
 import www.hearthstonewiki.db.DatabaseHelper;
 import www.hearthstonewiki.db.tables.APIVersionTable;
 import www.hearthstonewiki.db.tables.CardDataTable;
+import www.hearthstonewiki.db.tables.HeroPowerTable;
 import www.hearthstonewiki.db.tables.SetsTable;
 
 
@@ -354,8 +355,31 @@ public class APIService extends IntentService {
                         if(!card.has(JSONData.TYPE)) {
                             continue;
                         } else {
-                            if(card.getString(JSONData.TYPE).equals("Hero Power"))
+                            if(card.getString(JSONData.TYPE).equals("Hero Power") && cursor.getString(0).equals("Basic")) {
+                                String id = card.getString(JSONData.ID);
+                                String selection[] = {id};
+                                Cursor heroPower = db.query(
+                                        HeroPowerTable.TABLE_NAME,
+                                        PROJECTION,
+                                        HeroPowerTable._ID,
+                                        selection,
+                                        null,
+                                        null,
+                                        HeroPowerTable.DEFAULT_SORT_ORDER
+                                );
+
+                                if(heroPower.getCount() == 0) {
+                                    ContentValues cv = new ContentValues();
+                                    cv.put(HeroPowerTable._ID, id);
+                                    cv.put(HeroPowerTable.COLUMN_NAME, card.getString(JSONData.NAME));
+                                    if(card.has(JSONData.CLASS)) {
+                                        cv.put(CardDataTable.COLUMN_CLASS, card.getString(JSONData.CLASS));
+                                    }
+                                    db.insert(HeroPowerTable.TABLE_NAME, null, cv);
+                                }
+                                heroPower.close();
                                 continue;
+                            }
                         }
 
                         String id = card.getString(JSONData.ID);

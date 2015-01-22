@@ -41,6 +41,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + APIVersionTable.COLUMN_VERSION + " TEXT"
                 + ");"
         );
+        db.execSQL("CREATE TABLE " + HeroPowerTable.TABLE_NAME + " ("
+                        + HeroPowerTable._ID + " INTEGER PRIMARY KEY,"
+                        + HeroPowerTable.COLUMN_NAME + " TEXT,"
+                        + HeroPowerTable.COLUMN_CLASS + " TEXT"
+                        + ");"
+        );
     }
 
 
@@ -49,6 +55,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + CardDataTable.TABLE_NAME + ";");
         db.execSQL("DROP TABLE IF EXISTS " + SetsTable.TABLE_NAME + ";");
         db.execSQL("DROP TABLE IF EXISTS " + APIVersionTable.TABLE_NAME + ";");
+        db.execSQL("DROP TABLE IF EXISTS " + HeroPowerTable.TABLE_NAME + ";");
         onCreate(db);
     }
 }

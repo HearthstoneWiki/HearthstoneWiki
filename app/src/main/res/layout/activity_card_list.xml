@@ -57,7 +57,6 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:id="@+id/selectedHeroTextView"
                 android:layout_weight="1"
-                android:drawableLeft="@drawable/down_ico"
                 android:layout_gravity="center_vertical"
                 android:textColor="#ffafafaf"
                 android:textStyle="bold|italic"

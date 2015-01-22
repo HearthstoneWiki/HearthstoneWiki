@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +33,8 @@ public class MenuActivity extends Activity {
 
         Button lookDecsButton;
         Button lookCardsButton;
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         setContentView(R.layout.activity_main);
 
@@ -57,8 +60,6 @@ public class MenuActivity extends Activity {
                 startActivity(i);
             }
         });
-
-        APIService.startActionCheckConnection(this);
 
     }
 
@@ -95,9 +96,7 @@ public class MenuActivity extends Activity {
 
             switch(status) {
                 case APIStatus.CONNECTED:
-                    if(HearthstoneWikiApp.checkForUpdates)
-                        APIService.startActionCheckUpdate(context);
-                    HearthstoneWikiApp.checkForUpdates = false;
+                    APIService.startActionCheckUpdate(context);
                     break;
                 case APIStatus.NOT_CONNECTED:
                     message = APIStatusMsg.NO_CONNECTION;
