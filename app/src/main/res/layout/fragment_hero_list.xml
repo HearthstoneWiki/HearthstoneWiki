@@ -1,0 +1,131 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="www.hearthstonewiki.gui.fragments.HeroListFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center">
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="@string/druid_hero_name"
+            android:tag="@string/druid_hero_name"
+            android:background="@drawable/radio_btn_bg"
+            android:button="@android:color/transparent"
+            android:id="@+id/druidRadioButton"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp" />
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="@string/hunter_hero_name"
+            android:tag="@string/hunter_hero_name"
+            android:background="@drawable/radio_btn_bg"
+            android:button="@android:color/transparent"
+            android:id="@+id/hunterRadioButton"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp" />
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="@string/mage_hero_name"
+            android:tag="@string/mage_hero_name"
+            android:background="@drawable/radio_btn_bg"
+            android:button="@android:color/transparent"
+            android:id="@+id/mageRadioButton"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp" />
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="@string/paladin_hero_name"
+            android:tag="@string/paladin_hero_name"
+            android:background="@drawable/radio_btn_bg"
+            android:button="@android:color/transparent"
+            android:id="@+id/paladinRadioButton"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp" />
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="@string/priest_hero_name"
+            android:tag="@string/priest_hero_name"
+            android:background="@drawable/radio_btn_bg"
+            android:button="@android:color/transparent"
+            android:id="@+id/priestRadioButton"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp" />
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="@string/rogue_hero_name"
+            android:tag="@string/rogue_hero_name"
+            android:background="@drawable/radio_btn_bg"
+            android:button="@android:color/transparent"
+            android:id="@+id/rogueRadioButton"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp" />
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="@string/shaman_hero_name"
+            android:tag="@string/shaman_hero_name"
+            android:background="@drawable/radio_btn_bg"
+            android:button="@android:color/transparent"
+            android:id="@+id/shamanRadioButton"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp" />
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="@string/warlock_hero_name"
+            android:tag="@string/warlock_hero_name"
+            android:background="@drawable/radio_btn_bg"
+            android:button="@android:color/transparent"
+            android:id="@+id/warlockRadioButton"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp" />
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="@string/warrior_hero_name"
+            android:tag="@string/warrior_hero_name"
+            android:background="@drawable/radio_btn_bg"
+            android:button="@android:color/transparent"
+            android:id="@+id/warriorRadioButton"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp" />
+    </RadioGroup>
+
+</FrameLayout>

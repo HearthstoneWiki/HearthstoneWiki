@@ -82,6 +82,7 @@ public class FilterFragment extends Fragment implements ToggleButton.OnCheckedCh
 
         ImageButton searchButton = (ImageButton) v.findViewById(R.id.searchButton);
         searchButton.setOnClickListener(this);
+        v.setOnClickListener(this);
     }
 
     @Override
@@ -108,11 +109,13 @@ public class FilterFragment extends Fragment implements ToggleButton.OnCheckedCh
 
     @Override
     public void onClick(View view) {
-        if (mListener != null) {
-            EditText editText = (EditText) getActivity().findViewById(R.id.searchEditText);
-            mSearchingString = editText.getText().toString();
+        if (view.getId() == R.id.searchButton) {
+            if (mListener != null) {
+                EditText editText = (EditText) getActivity().findViewById(R.id.searchEditText);
+                mSearchingString = editText.getText().toString();
 
-            mListener.onClickSearchBtnInteraction(mSearchingString, mHeroesBtnMap.get(mSelectedHeroBtn));
+                mListener.onClickSearchBtnInteraction(mSearchingString, mHeroesBtnMap.get(mSelectedHeroBtn));
+            }
         }
     }
 

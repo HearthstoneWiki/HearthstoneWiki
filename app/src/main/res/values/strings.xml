@@ -34,5 +34,6 @@
     <string name="title_activity_decks_acivity">DecksAcivity</string>
     <string name="comming_soon">Coming Soon</string>
     <string name="comsun">comsun</string>
+    <string name="title_activity_heroes">HeroesActivity</string>
 
 </resources>

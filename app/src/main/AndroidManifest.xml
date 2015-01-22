@@ -41,6 +41,10 @@
             android:name=".gui.activities.DecksActivity"
             android:label="@string/title_activity_decks_acivity" >
         </activity>
+        <activity
+            android:name=".gui.activities.HeroesActivity"
+            android:label="@string/title_activity_heroes" >
+        </activity>
     </application>
 
 </manifest>

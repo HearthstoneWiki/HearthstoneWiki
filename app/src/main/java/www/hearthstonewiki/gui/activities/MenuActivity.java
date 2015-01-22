@@ -53,7 +53,7 @@ public class MenuActivity extends Activity {
         lookDecsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(MenuActivity.this, DecksActivity.class);
+                Intent i = new Intent(MenuActivity.this, HeroesActivity.class);
                 startActivity(i);
             }
         });

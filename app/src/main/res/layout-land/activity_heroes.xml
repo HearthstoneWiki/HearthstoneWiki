@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="www.hearthstonewiki.gui.activities.HeroesActivity"
+    android:background="@android:color/background_dark">
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView"
+        android:fillViewport="false"
+        android:layout_weight="0.7">
+
+        <fragment
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:name="www.hearthstonewiki.gui.fragments.HeroListFragment"
+            android:id="@+id/fragment"
+            tools:layout="@layout/fragment_hero_list"
+            android:layout_gravity="center_horizontal|top" />
+    </ScrollView>
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/heroInfoScrollView"
+        android:layout_weight="1" />
+
+</LinearLayout>
