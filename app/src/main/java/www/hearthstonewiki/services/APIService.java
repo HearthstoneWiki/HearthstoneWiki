@@ -218,6 +218,10 @@ public class APIService extends IntentService {
                 SetsTable.COLUMN_SET_NAME
         };
 
+        final String[] HERO_POWER_PROJECTION = new String[] {
+                HeroPowerTable._ID,
+        };
+
         public static final int API_ERROR = -1;
         public static final int ACTUAL = 0;
         public static final int NEED_TO_UPDATE = 1;
@@ -360,8 +364,8 @@ public class APIService extends IntentService {
                                 String selection[] = {id};
                                 Cursor heroPower = db.query(
                                         HeroPowerTable.TABLE_NAME,
-                                        PROJECTION,
-                                        HeroPowerTable._ID,
+                                        HERO_POWER_PROJECTION,
+                                        HeroPowerTable._ID + "=?",
                                         selection,
                                         null,
                                         null,
@@ -373,7 +377,7 @@ public class APIService extends IntentService {
                                     cv.put(HeroPowerTable._ID, id);
                                     cv.put(HeroPowerTable.COLUMN_NAME, card.getString(JSONData.NAME));
                                     if(card.has(JSONData.CLASS)) {
-                                        cv.put(CardDataTable.COLUMN_CLASS, card.getString(JSONData.CLASS));
+                                        cv.put(HeroPowerTable.COLUMN_CLASS, card.getString(JSONData.CLASS));
                                     }
                                     db.insert(HeroPowerTable.TABLE_NAME, null, cv);
                                 }

@@ -20,8 +20,8 @@ import www.hearthstonewiki.gui.fragments.HeroListFragment;
 public class HeroesActivity extends Activity implements
         HeroListFragment.OnFragmentInteractionListener {
 
-    private boolean mIsPortrait;
-    private boolean mIsLandscape;
+    public boolean mIsPortrait;
+    public boolean mIsLandscape;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

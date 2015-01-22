@@ -19,14 +19,15 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:padding="15dp">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/heroImageView"
             android:src="@drawable/hero_warrior"
-            android:layout_gravity="top"
+            android:layout_gravity="center_horizontal|top"
             android:cropToPadding="false"
             android:scaleType="fitStart"
             android:contentDescription="@string/hero_ava"
@@ -38,7 +39,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/abilityImageView"
             android:src="@drawable/hero_paladin"
-            android:layout_gravity="top"
+            android:layout_gravity="center_horizontal|top"
             android:cropToPadding="false"
             android:scaleType="fitStart"
             android:contentDescription="@string/hero_ability"

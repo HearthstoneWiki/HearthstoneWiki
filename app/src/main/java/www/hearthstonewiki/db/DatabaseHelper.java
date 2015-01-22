@@ -15,7 +15,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String AUTHORITY = "www.hearthstone-wiki";
 
     private static final String DATABASE_NAME = "hearthstone.db";
-    private static final int DATABASE_VERSION = 17;
+    private static final int DATABASE_VERSION = 22;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -42,7 +42,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 + ");"
         );
         db.execSQL("CREATE TABLE " + HeroPowerTable.TABLE_NAME + " ("
-                        + HeroPowerTable._ID + " INTEGER PRIMARY KEY,"
+                        + HeroPowerTable._ID + " TEXT PRIMARY KEY,"
                         + HeroPowerTable.COLUMN_NAME + " TEXT,"
                         + HeroPowerTable.COLUMN_CLASS + " TEXT"
                         + ");"

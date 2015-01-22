@@ -1,6 +1,8 @@
 package www.hearthstonewiki.gui.fragments;
 
 import android.app.Activity;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -11,11 +13,17 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
+
 import java.util.HashMap;
 import java.util.Map;
 
 import www.hearthstonewiki.R;
+import www.hearthstonewiki.db.DatabaseHelper;
+import www.hearthstonewiki.db.tables.HeroPowerTable;
 import www.hearthstonewiki.gui.activities.CardListActivity;
+import www.hearthstonewiki.gui.views.CardTransformation;
 
 public class HeroInfoFragment extends Fragment {
 
@@ -60,11 +68,13 @@ public class HeroInfoFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        TextView textView = (TextView) view.findViewById(R.id.heroStoryTextView);
-        textView.setText(mHeroesMap.get(mHeroName).story_id);
-        view.setBackgroundResource(mHeroesMap.get(mHeroName).bg_img_id);
-        ImageView imageView = (ImageView) view.findViewById(R.id.heroImageView);
-        imageView.setImageResource(mHeroesMap.get(mHeroName).img_id);
+//        TextView textView = (TextView) view.findViewById(R.id.heroStoryTextView);
+//        textView.setText(mHeroesMap.get(mHeroName).story_id);
+//        view.setBackgroundResource(mHeroesMap.get(mHeroName).bg_img_id);
+//        ImageView imageView = (ImageView) view.findViewById(R.id.heroImageView);
+//        imageView.setImageResource(mHeroesMap.get(mHeroName).img_id);
+
+        setHeroInfo();
 
     }
 
@@ -91,11 +101,44 @@ public class HeroInfoFragment extends Fragment {
 
     public void applyNewHero(String heroName) {
         mHeroName = heroName;
+        setHeroInfo();
+    }
+
+    private void setHeroInfo() {
         TextView textView = (TextView) getActivity().findViewById(R.id.heroStoryTextView);
         textView.setText(mHeroesMap.get(mHeroName).story_id);
         getActivity().findViewById(R.id.heroInfoScrollView).setBackgroundResource(mHeroesMap.get(mHeroName).bg_img_id);
         ImageView imageView = (ImageView) getActivity().findViewById(R.id.heroImageView);
         imageView.setImageResource(mHeroesMap.get(mHeroName).img_id);
+
+        final String[] HERO_POWER_PROJECTION = new String[] {
+                HeroPowerTable._ID,
+        };
+        DatabaseHelper mDbHelper = new DatabaseHelper(getActivity());
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        Cursor cursor = db.query(HeroPowerTable.TABLE_NAME,
+                HERO_POWER_PROJECTION,
+                HeroPowerTable.COLUMN_CLASS + "=" + "'" + mHeroName + "'",
+                null,
+                null,
+                null,
+                null
+        );
+        cursor.moveToFirst();
+        String cardID = cursor.getString(0);
+        cursor.close();
+        String PIC_SERVER_URL = "http://wow.zamimg.com/images/hearthstone/cards/enus/original/";
+        String PIC_EXTENSION = ".png";
+        String url = PIC_SERVER_URL + cardID + PIC_EXTENSION;
+
+        Transformation tr = new CardTransformation();
+        ImageView abilityImageView = (ImageView) getActivity().findViewById(R.id.abilityImageView);
+
+        Picasso.with(getActivity())
+                .load(url)
+                .resize(434, 585)
+                .transform(tr)
+                .into(abilityImageView);
     }
 
 

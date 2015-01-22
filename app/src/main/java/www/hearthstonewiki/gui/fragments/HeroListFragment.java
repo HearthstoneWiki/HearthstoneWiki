@@ -11,6 +11,7 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import www.hearthstonewiki.R;
+import www.hearthstonewiki.gui.activities.HeroesActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -110,10 +111,8 @@ public class HeroListFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         //Toast.makeText(getActivity(), "sdfdfg", Toast.LENGTH_SHORT).show();
         if (mListener != null) {
-            if (!mHeroName.equals(view.getTag().toString())) {
-                mHeroName = view.getTag().toString();
-                mListener.onChooseHeroInteraction(view.getTag().toString());
-            }
+            mHeroName = view.getTag().toString();
+            mListener.onChooseHeroInteraction(view.getTag().toString());
         }
     }
 
