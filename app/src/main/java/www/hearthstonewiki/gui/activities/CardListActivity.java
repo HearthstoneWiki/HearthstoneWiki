@@ -15,6 +15,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import www.hearthstonewiki.R;
 import www.hearthstonewiki.gui.fragments.CardDetailFragment;
 import www.hearthstonewiki.gui.fragments.CardListFragment;
@@ -38,6 +41,8 @@ public class CardListActivity extends Activity implements
     public static final String DRUID = "Druid";
     public static final String ALL = "All";
 
+    private Map<String, HeroData> mHeroesMap = new HashMap<String, HeroData>();
+
     private String mSearchingStr = null;
     private String mSelectedHero = null;
 
@@ -51,6 +56,8 @@ public class CardListActivity extends Activity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_card_list);
 
@@ -62,6 +69,7 @@ public class CardListActivity extends Activity implements
         mIsPortrait = getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
         mIsLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
 
+        initHeroMap();
 
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -183,51 +191,63 @@ public class CardListActivity extends Activity implements
         FrameLayout heroBgView = (FrameLayout) findViewById(R.id.cardInfoFrameLayout);
         TextView selectedHeroText = (TextView) findViewById(R.id.selectedHeroTextView);
 
+
         if (mSelectedHero == null) {
-            if (selectedHeroText != null)
-                selectedHeroText.setText(ALL);
-            heroBgView.setBackgroundResource(R.drawable.bg_all);
-        } else if (mSelectedHero.equals(DRUID)) {
-            if (selectedHeroText != null)
-            selectedHeroText.setText(R.string.druid_hero_name);
-            heroBgView.setBackgroundResource(R.drawable.bg_druid);
-        } else if (mSelectedHero.equals(HUNTER)) {
-            if (selectedHeroText != null)
-            selectedHeroText.setText(R.string.hunter_hero_name);
-            heroBgView.setBackgroundResource(R.drawable.bg_hunter);
-        } else if (mSelectedHero.equals(WARlOCK)) {
-            if (selectedHeroText != null)
-            selectedHeroText.setText(R.string.warlock_hero_name);
-            heroBgView.setBackgroundResource(R.drawable.bg_warlock);
-        } else if (mSelectedHero.equals(WARRIOR)) {
-            if (selectedHeroText != null)
-            selectedHeroText.setText(R.string.warrior_hero_name);
-            heroBgView.setBackgroundResource(R.drawable.bg_warrior);
-        } else if (mSelectedHero.equals(PRIEST)) {
-            if (selectedHeroText != null)
-            selectedHeroText.setText(R.string.priest_hero_name);
-            heroBgView.setBackgroundResource(R.drawable.bg_priest);
-        } else if (mSelectedHero.equals(MAGE)) {
-            if (selectedHeroText != null)
-            selectedHeroText.setText(R.string.mage_hero_name);
-            heroBgView.setBackgroundResource(R.drawable.bg_mage);
-        } else if (mSelectedHero.equals(NEUTRAL)) {
-            if (selectedHeroText != null)
-            selectedHeroText.setText(R.string.neutral_hero_name);
-            heroBgView.setBackgroundResource(R.drawable.bg_neutral);
-        } else if (mSelectedHero.equals(PALADIN)) {
-            if (selectedHeroText != null)
-            selectedHeroText.setText(R.string.paladin_hero_name);
-            heroBgView.setBackgroundResource(R.drawable.bg_paladin);
-        } else if (mSelectedHero.equals(ROGUE)) {
-            if (selectedHeroText != null)
-            selectedHeroText.setText(R.string.rogue_hero_name);
-            heroBgView.setBackgroundResource(R.drawable.bg_rogue);
-        } else if (mSelectedHero.equals(SHAMAN)) {
-            if (selectedHeroText != null)
-            selectedHeroText.setText(R.string.shaman_hero_name);
-            heroBgView.setBackgroundResource(R.drawable.bg_shaman);
+            if (selectedHeroText != null) {
+                selectedHeroText.setText(mHeroesMap.get(ALL).hero_name_id);
+            }
+            heroBgView.setBackgroundResource(mHeroesMap.get(ALL).bg_img_id);
         }
+        else {
+            if (selectedHeroText != null) {
+                //Toast.makeText(this, mSelectedHero, Toast.LENGTH_SHORT).show();
+                selectedHeroText.setText(mHeroesMap.get(mSelectedHero).hero_name_id);
+            }
+            heroBgView.setBackgroundResource(mHeroesMap.get(mSelectedHero).bg_img_id);
+        }
+
+
+//        } else if (mSelectedHero.equals(DRUID)) {
+//            if (selectedHeroText != null)
+//            selectedHeroText.setText(R.string.druid_hero_name);
+//            heroBgView.setBackgroundResource(R.drawable.bg_druid);
+//        } else if (mSelectedHero.equals(HUNTER)) {
+//            if (selectedHeroText != null)
+//            selectedHeroText.setText(R.string.hunter_hero_name);
+//            heroBgView.setBackgroundResource(R.drawable.bg_hunter);
+//        } else if (mSelectedHero.equals(WARlOCK)) {
+//            if (selectedHeroText != null)
+//            selectedHeroText.setText(R.string.warlock_hero_name);
+//            heroBgView.setBackgroundResource(R.drawable.bg_warlock);
+//        } else if (mSelectedHero.equals(WARRIOR)) {
+//            if (selectedHeroText != null)
+//            selectedHeroText.setText(R.string.warrior_hero_name);
+//            heroBgView.setBackgroundResource(R.drawable.bg_warrior);
+//        } else if (mSelectedHero.equals(PRIEST)) {
+//            if (selectedHeroText != null)
+//            selectedHeroText.setText(R.string.priest_hero_name);
+//            heroBgView.setBackgroundResource(R.drawable.bg_priest);
+//        } else if (mSelectedHero.equals(MAGE)) {
+//            if (selectedHeroText != null)
+//            selectedHeroText.setText(R.string.mage_hero_name);
+//            heroBgView.setBackgroundResource(R.drawable.bg_mage);
+//        } else if (mSelectedHero.equals(NEUTRAL)) {
+//            if (selectedHeroText != null)
+//            selectedHeroText.setText(R.string.neutral_hero_name);
+//            heroBgView.setBackgroundResource(R.drawable.bg_neutral);
+//        } else if (mSelectedHero.equals(PALADIN)) {
+//            if (selectedHeroText != null)
+//            selectedHeroText.setText(R.string.paladin_hero_name);
+//            heroBgView.setBackgroundResource(R.drawable.bg_paladin);
+//        } else if (mSelectedHero.equals(ROGUE)) {
+//            if (selectedHeroText != null)
+//            selectedHeroText.setText(R.string.rogue_hero_name);
+//            heroBgView.setBackgroundResource(R.drawable.bg_rogue);
+//        } else if (mSelectedHero.equals(SHAMAN)) {
+//            if (selectedHeroText != null)
+//            selectedHeroText.setText(R.string.shaman_hero_name);
+//            heroBgView.setBackgroundResource(R.drawable.bg_shaman);
+//        }
 
         if (!mIsLandscape) {
             ((LinearLayout)findViewById(R.id.selectedHeroView)).setVisibility(View.VISIBLE);
@@ -280,6 +300,30 @@ public class CardListActivity extends Activity implements
         if (cardDetailFragment != null) {
             ft.remove(cardDetailFragment);
             ft.commit();
+        }
+    }
+
+    private void initHeroMap() {
+        mHeroesMap.put(WARRIOR, new HeroData(R.drawable.bg_warrior, R.string.warrior_hero_name));
+        mHeroesMap.put(MAGE, new HeroData(R.drawable.bg_mage, R.string.mage_hero_name));
+        mHeroesMap.put(PALADIN, new HeroData(R.drawable.bg_paladin, R.string.paladin_hero_name));
+        mHeroesMap.put(PRIEST, new HeroData(R.drawable.bg_priest, R.string.priest_hero_name));
+        mHeroesMap.put(ROGUE, new HeroData(R.drawable.bg_rogue, R.string.rogue_hero_name));
+        mHeroesMap.put(SHAMAN, new HeroData(R.drawable.bg_shaman, R.string.shaman_hero_name));
+        mHeroesMap.put(WARlOCK, new HeroData(R.drawable.bg_warlock, R.string.warlock_hero_name));
+        mHeroesMap.put(HUNTER, new HeroData(R.drawable.bg_hunter, R.string.hunter_hero_name));
+        mHeroesMap.put(DRUID, new HeroData(R.drawable.bg_druid, R.string.druid_hero_name));
+        mHeroesMap.put(NEUTRAL, new HeroData(R.drawable.bg_neutral, R.string.neutral_hero_name));
+        mHeroesMap.put(ALL, new HeroData(R.drawable.bg_all, R.string.all_hero));
+    }
+
+    public class HeroData {
+        public int bg_img_id;
+        public int hero_name_id;
+
+        public HeroData(int bg_img_id, int hero_name_id) {
+            this.bg_img_id = bg_img_id;
+            this.hero_name_id = hero_name_id;
         }
     }
 }

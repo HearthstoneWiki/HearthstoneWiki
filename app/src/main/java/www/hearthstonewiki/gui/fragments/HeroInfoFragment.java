@@ -86,18 +86,17 @@ public class HeroInfoFragment extends Fragment {
 
     private void initHeroMap() {
 
-        mHeroesMap.put(CardListActivity.WARRIOR, new HeroData(R.string.warrior_description, R.drawable.bg_warrior, R.drawable.hero_warrior));
-        mHeroesMap.put(CardListActivity.MAGE, new HeroData(R.string.mage_description, R.drawable.bg_mage, R.drawable.hero_mage));
-        mHeroesMap.put(CardListActivity.PALADIN, new HeroData(R.string.paladin_description, R.drawable.bg_paladin, R.drawable.hero_paladin));
-        mHeroesMap.put(CardListActivity.PRIEST, new HeroData(R.string.priest_description, R.drawable.bg_priest, R.drawable.hero_priest));
-        mHeroesMap.put(CardListActivity.ROGUE, new HeroData(R.string.rogue_description, R.drawable.bg_rogue, R.drawable.hero_rogue));
-        mHeroesMap.put(CardListActivity.SHAMAN, new HeroData(R.string.shaman_description, R.drawable.bg_shaman, R.drawable.hero_shaman));
-        mHeroesMap.put(CardListActivity.WARlOCK, new HeroData(R.string.warlock_description, R.drawable.bg_warlock, R.drawable.hero_warlock));
-        mHeroesMap.put(CardListActivity.HUNTER, new HeroData(R.string.hunter_description, R.drawable.bg_hunter, R.drawable.hero_hunter));
-        mHeroesMap.put(CardListActivity.DRUID, new HeroData(R.string.druid_description, R.drawable.bg_druid, R.drawable.hero_druid));
+        mHeroesMap.put(CardListActivity.WARRIOR, new HeroData(R.string.warrior_description, R.drawable.bg_warrior, R.drawable.hero_warrior, R.string.warrior_hero_full_name));
+        mHeroesMap.put(CardListActivity.MAGE, new HeroData(R.string.mage_description, R.drawable.bg_mage, R.drawable.hero_mage, R.string.mage_hero_full_name));
+        mHeroesMap.put(CardListActivity.PALADIN, new HeroData(R.string.paladin_description, R.drawable.bg_paladin, R.drawable.hero_paladin, R.string.paladin_hero_full_name));
+        mHeroesMap.put(CardListActivity.PRIEST, new HeroData(R.string.priest_description, R.drawable.bg_priest, R.drawable.hero_priest, R.string.priest_hero_full_name));
+        mHeroesMap.put(CardListActivity.ROGUE, new HeroData(R.string.rogue_description, R.drawable.bg_rogue, R.drawable.hero_rogue, R.string.rogue_hero_full_name));
+        mHeroesMap.put(CardListActivity.SHAMAN, new HeroData(R.string.shaman_description, R.drawable.bg_shaman, R.drawable.hero_shaman, R.string.shaman_hero_full_name));
+        mHeroesMap.put(CardListActivity.WARlOCK, new HeroData(R.string.warlock_description, R.drawable.bg_warlock, R.drawable.hero_warlock, R.string.warlock_hero_full_name));
+        mHeroesMap.put(CardListActivity.HUNTER, new HeroData(R.string.hunter_description, R.drawable.bg_hunter, R.drawable.hero_hunter, R.string.hunter_hero_full_name));
+        mHeroesMap.put(CardListActivity.DRUID, new HeroData(R.string.druid_description, R.drawable.bg_druid, R.drawable.hero_druid, R.string.druid_hero_full_name));
 
     }
-
 
     public void applyNewHero(String heroName) {
         mHeroName = heroName;
@@ -108,7 +107,7 @@ public class HeroInfoFragment extends Fragment {
         TextView textView = (TextView) getActivity().findViewById(R.id.heroStoryTextView);
         textView.setText(mHeroesMap.get(mHeroName).story_id);
         TextView name = (TextView) getActivity().findViewById(R.id.heroName);
-        name.setText(mHeroName);
+        name.setText(mHeroesMap.get(mHeroName).hero_full_name_id);
         getActivity().findViewById(R.id.heroInfoScrollView).setBackgroundResource(mHeroesMap.get(mHeroName).bg_img_id);
         ImageView imageView = (ImageView) getActivity().findViewById(R.id.heroImageView);
         imageView.setImageResource(mHeroesMap.get(mHeroName).img_id);
@@ -158,11 +157,13 @@ public class HeroInfoFragment extends Fragment {
         public int story_id;
         public int bg_img_id;
         public int img_id;
+        public int hero_full_name_id;
 
-        public HeroData(int story_id, int bg_img_id, int img_id) {
+        public HeroData(int story_id, int bg_img_id, int img_id, int hero_full_name_id) {
             this.story_id = story_id;
             this.bg_img_id = bg_img_id;
             this.img_id = img_id;
+            this.hero_full_name_id = hero_full_name_id;
         }
     }
 

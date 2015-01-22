@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="neutral_hero_name">Neutral</string>
+    <string name="all_hero">All</string>
 
     <string name="warrior_hero_name">Warrior</string>
     <string name="mage_hero_name">Mage</string>
@@ -11,6 +12,16 @@
     <string name="warlock_hero_name">Warlock</string>
     <string name="hunter_hero_name">Hunter</string>
     <string name="druid_hero_name">Druid</string>
+
+    <string name="warrior_hero_full_name">Garrosh Hellscream</string>
+    <string name="mage_hero_full_name">Jaina Proudmoore</string>
+    <string name="paladin_hero_full_name">Uther the Lightbringer</string>
+    <string name="priest_hero_full_name">Anduin Wrynn</string>
+    <string name="rogue_hero_full_name">Valeera Sanguinar</string>
+    <string name="shaman_hero_full_name">Thrall</string>
+    <string name="warlock_hero_full_name">Guldan</string>
+    <string name="hunter_hero_full_name">Rexxar</string>
+    <string name="druid_hero_full_name">Malfurion Stormrage</string>
 
     <string name="warrior_description">
     Garrosh Hellscream, former Warchief of the Horde, is a living testament to the dangers of unchecked aggression. Garrosh was born on the orcish homeworld of Draenor, and grew up untainted by the demonic blood that twisted the orcs who invaded Azeroth. Though he wasnt demonically influenced himself, Garrosh was haunted by his familys legacy: his father, Grom Hellscream, was the first orc to embrace corruption by drinking the blood of the pit lord Mannoroth. Garrosh lived in the shadow of his fathers acts until he met Warchief Thrall, founder of the renewed Horde, who explained to the younger Hellscream how Grom ultimately gave his life to lift the demonic blood-curse, and freed his race from servitude to dark forces. </string>
