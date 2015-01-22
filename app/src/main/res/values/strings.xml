@@ -25,7 +25,7 @@
     <string name="app_name">HearthstoneWiki</string>
     <string name="hello_world">Hello world! <b>Freeze</b></string>
     <string name="action_settings">Settings</string>
-    <string name="action_look_decks">Decks</string>
+    <string name="action_look_decks">Heroes</string>
     <string name="action_look_cards">Cards</string>
     <string name="hearthstone_string">hearthstone</string>
     <string name="hearthstone_logo">hearthstone_logo</string>

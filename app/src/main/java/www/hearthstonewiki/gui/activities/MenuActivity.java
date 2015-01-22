@@ -44,24 +44,30 @@ public class MenuActivity extends Activity {
 
 
         lookCardsButton = (Button)findViewById(R.id.look_cards_button);
+        lookCardsButton.setBackgroundResource(R.drawable.button_style);
         lookCardsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent i = new Intent(MenuActivity.this, CardListActivity.class);
                 startActivity(i);
             }
         });
 
         lookDecsButton = (Button)findViewById(R.id.look_decks_button);
+        lookDecsButton.setBackgroundResource(R.drawable.button_style);
         lookDecsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent i = new Intent(MenuActivity.this, HeroesActivity.class);
                 startActivity(i);
             }
         });
 
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
