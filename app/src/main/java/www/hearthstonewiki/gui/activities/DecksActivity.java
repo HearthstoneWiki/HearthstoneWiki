@@ -1,20 +1,61 @@
 package www.hearthstonewiki.gui.activities;
 
 import android.app.Activity;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
+import android.widget.ImageView;
+
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Transformation;
 
 import www.hearthstonewiki.R;
+import www.hearthstonewiki.db.DatabaseHelper;
+import www.hearthstonewiki.db.tables.HeroPowerTable;
+import www.hearthstonewiki.gui.views.CardTransformation;
 
 public class DecksActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.decks_layout);
+
+        String heroClass = "Shaman";
+        final String[] HERO_POWER_PROJECTION = new String[] {
+                HeroPowerTable._ID,
+        };
+        DatabaseHelper mDbHelper = new DatabaseHelper(this);
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        Cursor cursor = db.query(HeroPowerTable.TABLE_NAME,
+                    HERO_POWER_PROJECTION,
+                    HeroPowerTable.COLUMN_CLASS + "=" + "'Shaman'",
+                    null,
+                    null,
+                    null,
+                    null
+                );
+        cursor.moveToFirst();
+        String cardID = cursor.getString(0);
+        cursor.close();
+        String PIC_SERVER_URL = "http://wow.zamimg.com/images/hearthstone/cards/enus/original/";
+        String PIC_EXTENSION = ".png";
+        String url = PIC_SERVER_URL + cardID + PIC_EXTENSION;
+
+        Transformation tr = new CardTransformation();
+        ImageView imageView = (ImageView) findViewById(R.id.power);
+
+        Picasso.with(this)
+                .load(url)
+                .resize(434, 585)
+                .transform(tr)
+                .into(imageView);
     }
 
 
