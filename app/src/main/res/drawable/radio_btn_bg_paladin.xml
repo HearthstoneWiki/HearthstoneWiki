@@ -2,15 +2,15 @@
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:drawable="@drawable/card_bg_priest_mono"
+        android:drawable="@drawable/button_paladin"
         android:state_checked="true"
         android:state_pressed="true" />
     <item
-        android:drawable="@drawable/card_bg_priest"
+        android:drawable="@drawable/button_paladin_a"
         android:state_pressed="true" />
     <item
-        android:drawable="@drawable/card_bg_priest"
+        android:drawable="@drawable/button_paladin_a"
         android:state_checked="true" />
     <item
-        android:drawable="@drawable/card_bg_priest_mono" />
+        android:drawable="@drawable/button_paladin" />
 </selector>

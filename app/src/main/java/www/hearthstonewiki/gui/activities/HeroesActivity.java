@@ -57,7 +57,7 @@ public class HeroesActivity extends Activity implements
     public void onChooseHeroInteraction(String heroName) {
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-        Toast.makeText(this, heroName, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, heroName, Toast.LENGTH_SHORT).show();
         HeroInfoFragment heroInfoFragment = (HeroInfoFragment) fm.findFragmentByTag(HeroInfoFragment.HERO_INFO_FRAGMENT_TAG);
         if (heroInfoFragment == null) { // Если фрагмент еще не был добавлен
             heroInfoFragment = HeroInfoFragment.newInstance(heroName);
