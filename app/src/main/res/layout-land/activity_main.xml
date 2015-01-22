@@ -13,7 +13,7 @@
     <ImageView
         android:layout_width="200dp"
         android:layout_height="100dp"
-        android:id="@+id/imageView2"
+        android:id="@+id/abilityImageView"
         android:src="@drawable/hearthstone_logo"
         android:contentDescription="@string/logo_img"
         android:layout_gravity="center_horizontal"
@@ -27,7 +27,7 @@
         android:text="@string/action_look_cards"
         android:textSize="20sp"
         android:layout_gravity="center_horizontal"
-        android:layout_below="@+id/imageView2"
+        android:layout_below="@+id/abilityImageView"
         android:layout_centerHorizontal="true" />
 
     <Button

@@ -7,47 +7,34 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import www.hearthstonewiki.R;
+import www.hearthstonewiki.gui.activities.CardListActivity;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link HeroInfoFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link HeroInfoFragment#newInstance} factory method to
- * create an instance of this fragment.
- *
- */
 public class HeroInfoFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    public static final String HERO_INFO_FRAGMENT_TAG = "hero_info_fragment_tag";
 
-    private OnFragmentInteractionListener mListener;
+    private Map<String, HeroData> mHeroesMap = new HashMap<String, HeroData>();
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HeroInfoFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static HeroInfoFragment newInstance(String param1, String param2) {
+    private static final String ARG_HERO_NAME = "hero_name";
+
+    private String mHeroName;
+
+    public static HeroInfoFragment newInstance(String heroName) {
         HeroInfoFragment fragment = new HeroInfoFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_HERO_NAME, heroName);
         fragment.setArguments(args);
         return fragment;
     }
+
     public HeroInfoFragment() {
         // Required empty public constructor
     }
@@ -56,55 +43,82 @@ public class HeroInfoFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            mHeroName = getArguments().getString(ARG_HERO_NAME);
         }
+        initHeroMap();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_hero_info, container, false);
+        View view = inflater.inflate(R.layout.fragment_hero_info, container, false);
+        return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        TextView textView = (TextView) view.findViewById(R.id.heroStoryTextView);
+        textView.setText(mHeroesMap.get(mHeroName).story_id);
+        view.setBackgroundResource(mHeroesMap.get(mHeroName).bg_img_id);
+        ImageView imageView = (ImageView) view.findViewById(R.id.heroImageView);
+        imageView.setImageResource(mHeroesMap.get(mHeroName).img_id);
+
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(ARG_HERO_NAME, mHeroName);
+    }
+
+    private void initHeroMap() {
+
+        mHeroesMap.put(CardListActivity.WARRIOR, new HeroData(R.string.warrior_description, R.drawable.bg_warrior, R.drawable.hero_warrior));
+        mHeroesMap.put(CardListActivity.MAGE, new HeroData(R.string.mage_description, R.drawable.bg_mage, R.drawable.hero_mage));
+        mHeroesMap.put(CardListActivity.PALADIN, new HeroData(R.string.paladin_description, R.drawable.bg_paladin, R.drawable.hero_paladin));
+        mHeroesMap.put(CardListActivity.PRIEST, new HeroData(R.string.priest_description, R.drawable.bg_priest, R.drawable.hero_priest));
+        mHeroesMap.put(CardListActivity.ROGUE, new HeroData(R.string.rogue_description, R.drawable.bg_rogue, R.drawable.hero_rogue));
+        mHeroesMap.put(CardListActivity.SHAMAN, new HeroData(R.string.shaman_description, R.drawable.bg_shaman, R.drawable.hero_shaman));
+        mHeroesMap.put(CardListActivity.WARlOCK, new HeroData(R.string.warlock_description, R.drawable.bg_warlock, R.drawable.hero_warlock));
+        mHeroesMap.put(CardListActivity.HUNTER, new HeroData(R.string.hunter_description, R.drawable.bg_hunter, R.drawable.hero_hunter));
+        mHeroesMap.put(CardListActivity.DRUID, new HeroData(R.string.druid_description, R.drawable.bg_druid, R.drawable.hero_druid));
+
+    }
+
+
+    public void applyNewHero(String heroName) {
+        mHeroName = heroName;
+        TextView textView = (TextView) getActivity().findViewById(R.id.heroStoryTextView);
+        textView.setText(mHeroesMap.get(mHeroName).story_id);
+        getActivity().findViewById(R.id.heroInfoScrollView).setBackgroundResource(mHeroesMap.get(mHeroName).bg_img_id);
+        ImageView imageView = (ImageView) getActivity().findViewById(R.id.heroImageView);
+        imageView.setImageResource(mHeroesMap.get(mHeroName).img_id);
+    }
+
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        try {
-            mListener = (OnFragmentInteractionListener) activity;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
+    public class HeroData {
+        public int story_id;
+        public int bg_img_id;
+        public int img_id;
+
+        public HeroData(int story_id, int bg_img_id, int img_id) {
+            this.story_id = story_id;
+            this.bg_img_id = bg_img_id;
+            this.img_id = img_id;
+        }
     }
 
 }

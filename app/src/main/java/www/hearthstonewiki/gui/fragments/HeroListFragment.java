@@ -7,6 +7,8 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
+import android.widget.Toast;
 
 import www.hearthstonewiki.R;
 
@@ -19,7 +21,7 @@ import www.hearthstonewiki.R;
  * create an instance of this fragment.
  *
  */
-public class HeroListFragment extends Fragment {
+public class HeroListFragment extends Fragment implements View.OnClickListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -28,6 +30,8 @@ public class HeroListFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private String mHeroName = "";
 
     private OnFragmentInteractionListener mListener;
 
@@ -59,6 +63,7 @@ public class HeroListFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        mHeroName = "";
     }
 
     @Override
@@ -68,11 +73,20 @@ public class HeroListFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_hero_list, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onChooseHeroInteraction(null);
-        }
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        ((RadioButton) view.findViewById(R.id.warriorRadioButton)).setOnClickListener(this);
+        ((RadioButton) view.findViewById(R.id.mageRadioButton)).setOnClickListener(this);
+        ((RadioButton) view.findViewById(R.id.paladinRadioButton)).setOnClickListener(this);
+        ((RadioButton) view.findViewById(R.id.priestRadioButton)).setOnClickListener(this);
+        ((RadioButton) view.findViewById(R.id.rogueRadioButton)).setOnClickListener(this);
+        ((RadioButton) view.findViewById(R.id.shamanRadioButton)).setOnClickListener(this);
+        ((RadioButton) view.findViewById(R.id.warlockRadioButton)).setOnClickListener(this);
+        ((RadioButton) view.findViewById(R.id.hunterRadioButton)).setOnClickListener(this);
+        ((RadioButton) view.findViewById(R.id.druidRadioButton)).setOnClickListener(this);
+
     }
 
     @Override
@@ -90,6 +104,17 @@ public class HeroListFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onClick(View view) {
+        //Toast.makeText(getActivity(), "sdfdfg", Toast.LENGTH_SHORT).show();
+        if (mListener != null) {
+            if (!mHeroName.equals(view.getTag().toString())) {
+                mHeroName = view.getTag().toString();
+                mListener.onChooseHeroInteraction(view.getTag().toString());
+            }
+        }
     }
 
     /**

@@ -22,9 +22,9 @@
             android:layout_gravity="center_horizontal|top" />
     </ScrollView>
 
-    <ScrollView
+    <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/heroInfoScrollView" />
+        android:id="@+id/heroInfoView" />
 
 </FrameLayout>

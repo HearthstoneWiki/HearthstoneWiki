@@ -13,7 +13,7 @@
     <ImageView
         android:layout_width="300dp"
         android:layout_height="150dp"
-        android:id="@+id/imageView2"
+        android:id="@+id/abilityImageView"
         android:src="@drawable/hearthstone_logo"
         android:contentDescription="@string/logo_img"
         android:layout_gravity="center_horizontal" />

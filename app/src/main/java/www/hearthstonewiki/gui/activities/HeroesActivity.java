@@ -1,22 +1,36 @@
 package www.hearthstonewiki.gui.activities;
 
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import www.hearthstonewiki.R;
 import www.hearthstonewiki.gui.fragments.HeroInfoFragment;
 import www.hearthstonewiki.gui.fragments.HeroListFragment;
 
 public class HeroesActivity extends Activity implements
-        HeroInfoFragment.OnFragmentInteractionListener,
         HeroListFragment.OnFragmentInteractionListener {
+
+    private boolean mIsPortrait;
+    private boolean mIsLandscape;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_heroes);
+
+        mIsPortrait = getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
+        mIsLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+
     }
 
 
@@ -40,12 +54,22 @@ public class HeroesActivity extends Activity implements
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
-
-    }
-
-    @Override
     public void onChooseHeroInteraction(String heroName) {
-
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        Toast.makeText(this, heroName, Toast.LENGTH_SHORT).show();
+        HeroInfoFragment heroInfoFragment = (HeroInfoFragment) fm.findFragmentByTag(HeroInfoFragment.HERO_INFO_FRAGMENT_TAG);
+        if (heroInfoFragment == null) { // Если фрагмент еще не был добавлен
+            heroInfoFragment = HeroInfoFragment.newInstance(heroName);
+            heroInfoFragment.setRetainInstance(true);
+            ft.add(R.id.heroInfoView, heroInfoFragment, HeroInfoFragment.HERO_INFO_FRAGMENT_TAG);
+            ft.addToBackStack(null);
+        }
+        else {
+            heroInfoFragment.applyNewHero(heroName);
+        }
+        ft.commit();
     }
+
+
 }
