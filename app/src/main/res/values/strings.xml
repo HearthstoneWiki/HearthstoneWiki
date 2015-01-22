@@ -12,15 +12,35 @@
     <string name="hunter_hero_name">Hunter</string>
     <string name="druid_hero_name">Druid</string>
 
-    <string name="warrior_description">warrior_descriptiondescription description description description description description description descriptiondescription description descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription</string>
-    <string name="mage_description">mage_descriptiondescription description description description description description description descriptiondescription description descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription</string>
-    <string name="paladin_description">paladin_descriptiondescription description description description description description description descriptiondescription description descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription</string>
-    <string name="priest_description">priest_descriptiondescription description description description description description description descriptiondescription description descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription</string>
-    <string name="rogue_description">rogue_descriptiondescription description description description description description description descriptiondescription description descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription</string>
-    <string name="shaman_description">shaman_descriptiondescription description description description description description description descriptiondescription description descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription</string>
-    <string name="warlock_description">warlock_descriptiondescription description description description description description description descriptiondescription description descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription</string>
-    <string name="hunter_description">hunter_descriptiondescription description description description description description description descriptiondescription description descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription</string>
-    <string name="druid_description">druid_descriptiondescription description description description description description description descriptiondescription description descriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescriptiondescription</string>
+    <string name="warrior_description">
+    Garrosh Hellscream, former Warchief of the Horde, is a living testament to the dangers of unchecked aggression. Garrosh was born on the orcish homeworld of Draenor, and grew up untainted by the demonic blood that twisted the orcs who invaded Azeroth. Though he wasnt demonically influenced himself, Garrosh was haunted by his familys legacy: his father, Grom Hellscream, was the first orc to embrace corruption by drinking the blood of the pit lord Mannoroth. Garrosh lived in the shadow of his fathers acts until he met Warchief Thrall, founder of the renewed Horde, who explained to the younger Hellscream how Grom ultimately gave his life to lift the demonic blood-curse, and freed his race from servitude to dark forces. </string>
+    <string name="mage_description">One of the most powerful magic-wielders on the face of Azeroth, the once kindhearted and compassionate Jaina Proudmoore has mastered the arcane arts, fought against demons of the Burning Legion and the undead Scourge, and gained a newfound fury towards the Horde after the destruction of her beloved Theramore.
+
+As a child, Jaina showed great aptitude for magic and much compassion for her people. She was sent to Dalaran—a powerful kingdom and a haven for magi—to learn how to harness the powers of the arcane. The leader of the Kirin Tor, Archmage Antonidas, sensed great potential in Jaina and accepted her as a pupil. Studious and talented, Jaina immediately took to the arcane arts. Her studies and responsibilities consumed most of her waking moments, leaving little room for mundane pursuits. </string>
+    <string name="paladin_description">The sobriquet “Lightbringer” is not softly won, nor softly maintained beyond death. The legend of noble Uther guides the Alliance years after his passing.
+
+Many devout followers of the Light were killed during the First War, unprepared for the sheer brutality of warfare against the Horde. The leader of the Clerics of Northshire, Alonsus Faol, believed that the Light could protect the faithful and devoted, and thus began training the most virtuous knights of Lordaeron to wield the Light in battle.
+
+The first knight to be named a paladin was Uther, who helped found the Knights of the Silver Hand alongside Archbishop Faol and became a legend among his order. When the Second War began, Uther fought alongside his brother-in-arms, Turalyon, to fend off the forces of Horde commander Orgrim Doomhammer and lead the Alliance in a final, successful attack on the Dark Portal. In the wake of the Hordes defeat, Uther helped rebuild Stormwind City and cared for the sick and injured. </string>
+    <string name="priest_description">Levelheaded and compassionate, the young Prince Anduin of Stormwind holds a different view of the world than that of his father, the warrior king Varian Wrynn. Where Varian has a taste for combat, Anduin instead found his calling in the Holy Light—a calling that would lead him to play a critical role in the recent conflict on Pandaria. Gather ’round as we tell you more about Anduin’s story. . . .
+
+Anduin Llane Wrynn is named after two legendary figures from Stormwind’s history: his grandfather King Llane Wrynn and Anduin “The Lion of Azeroth” Lothar. </string>
+    <string name="rogue_description">
+    Orphan. Thief. Gladiator. Assassin. Rogue.
+
+Orphaned at a young age, the blood elf Valeera Sanguinar spent her youth stealing to survive. After being imprisoned for a failed theft, she was sold to Rehgar Earthfury, a trainer of fierce gladiators, who saw great fighting potential in Valeera. Rehgar grouped Valeera with the night elf druid Broll Bearmantle and a mysterious but fierce human male, who had no memory of who he was or how he arrived in orc territory. </string>
+    <string name="shaman_description">From his humble beginnings as a slave to his rise as Warchief of the Horde, Thrall has cut a path through the history of Azeroth through his courageous actions, unfaltering will, and his mastery of the Elements as a Shaman.
+
+Thrall has been one of the most influential characters in the Warcraft universe; his intelligence, wisdom, and rationality has helped shaped the Horde into a unified force to be reckoned with. </string>
+    <string name="warlock_description">Once called “Darkness Incarnate” and “Destroyer of Dreams,” Gul’dan was the first orc warlock and is considered one of the most powerful warlocks to have ever existed. He lived to amass power by any means necessary—even betraying his kin to those that sought to enslave them.
+
+Gul’dan’s tale began on the planet Draenor, the homeworld of the orcs. The most spiritual of Draenor’s orcs were the Shadowmoon Clan, which was led by the orc shaman Ner’zhul. Ner’zhul was Gul’dan’s mentor, and he taught the young Gul’dan how to harness the elements. Gul’dan was a talented pupil, and with his intelligence and cunning he took to shamanism readily. </string>
+    <string name="hunter_description">Rexxar once called the Blade’s Edge Mountains home as one of the Mok’Nathal, a clan primarily composed of other half-ogres like himself. Unwelcome by both the full-blooded orcs and ogres in the area, the Mok’Nathal were secular and isolationist, wishing little else but to be left to their own devices. However, Rexxar saw great potential for his people in Azeroth, the world beyond the Dark Portal, and eventually left his isolated clan behind to join the Horde with his animal companion, Haratha the wolf. After being betrayed repeatedly by others of the orcish race, including Guldan the Warlock, Rexxar lost Haratha to the dark magic of orcish warlocks and turned to a life of solitude, joined only by those incapable of lies and treachery: the beasts of the wild.</string>
+    <string name="druid_description">The blessings of the forest lord Cenarius have made Malfurion Stormrage the epitome of what it means to be a druid.
+
+Under the guidance of Cenarius – the demigod of nature and patron of druids – the venerable Malfurion Stormrage has protected the night elves from demonic invaders for millennia.
+
+During the War of the Ancients, Malfurion was among those who defended all life on Azeroth from the terrible Burning Legion, along with his future lover Tyrande Whisperwind and his brother Illidan. After their victory against the demons, Malfurion saw to it that the night elves left the Legions ravages behind, settling in a new home near Mount Hyjal and overseeing the growth of the World Tree, Nordrassil. The Aspect of Dreams, Ysera, linked Nordrassil to the Emerald Dream—a representation of Azeroth without war and interference from sentient beings—allowing all druids, including Malfurion, access to the realm. Malfurion and others explored the Dream for centuries. </string>
 
     <string name="app_name">HearthstoneWiki</string>
     <string name="hello_world">Hello world! <b>Freeze</b></string>
@@ -48,7 +68,7 @@
     <string name="title_activity_heroes">HeroesActivity</string>
     <string name="hero_ability">Ability</string>
     <string name="hero_ava">Hero</string>
-
+    <string name="priest_name">Anduin Wrynn</string>
 
 
 </resources>

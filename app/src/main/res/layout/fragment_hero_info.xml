@@ -15,6 +15,18 @@
         android:id="@+id/imageView"
         android:orientation="vertical">
 
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/heroName"
+            android:textSize="35sp"
+            android:padding="10dp"
+            android:layout_margin="20dp"
+            android:background="#66c0c0c0" />
+
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"

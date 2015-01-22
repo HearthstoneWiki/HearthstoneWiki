@@ -107,6 +107,8 @@ public class HeroInfoFragment extends Fragment {
     private void setHeroInfo() {
         TextView textView = (TextView) getActivity().findViewById(R.id.heroStoryTextView);
         textView.setText(mHeroesMap.get(mHeroName).story_id);
+        TextView name = (TextView) getActivity().findViewById(R.id.heroName);
+        name.setText(mHeroName);
         getActivity().findViewById(R.id.heroInfoScrollView).setBackgroundResource(mHeroesMap.get(mHeroName).bg_img_id);
         ImageView imageView = (ImageView) getActivity().findViewById(R.id.heroImageView);
         imageView.setImageResource(mHeroesMap.get(mHeroName).img_id);
