@@ -3,9 +3,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/toast_layout_root"
     android:orientation="horizontal"
+    android:padding="10dp"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:padding="8dp"
     android:background="@drawable/toast_shape"
     >
     <ImageView android:src="@drawable/women"
